@@ -95,19 +95,48 @@
 	}
 
 	.add-note-btn {
-		padding: 0.5rem 1rem;
-		background: var(--accent-color, #007acc);
+		padding: 0.625rem 1.25rem;
+		background: linear-gradient(135deg, #4fc3f7, #29b6f6);
 		color: white;
 		border: none;
-		border-radius: 6px;
+		border-radius: 12px;
 		cursor: pointer;
-		font-weight: 500;
-		transition: all 0.2s;
+		font-weight: 600;
+		font-size: 0.9rem;
+		transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+		box-shadow: 0 4px 12px rgba(79, 195, 247, 0.3);
+		position: relative;
+		overflow: hidden;
+	}
+
+	.add-note-btn::before {
+		content: '';
+		position: absolute;
+		top: 0;
+		left: -100%;
+		width: 100%;
+		height: 100%;
+		background: linear-gradient(90deg, 
+			transparent, 
+			rgba(255, 255, 255, 0.2), 
+			transparent
+		);
+		transition: left 0.5s ease;
+	}
+
+	.add-note-btn:hover::before {
+		left: 100%;
 	}
 
 	.add-note-btn:hover {
-		background: var(--accent-hover-color, #005a9e);
+		background: linear-gradient(135deg, #29b6f6, #1e88e5);
+		transform: translateY(-2px);
+		box-shadow: 0 6px 20px rgba(79, 195, 247, 0.4);
+	}
+
+	.add-note-btn:active {
 		transform: translateY(-1px);
+		box-shadow: 0 4px 12px rgba(79, 195, 247, 0.3);
 	}
 
 	.notes-container {
@@ -167,31 +196,41 @@
 
 	.delete-btn {
 		position: absolute;
-		top: 0.5rem;
-		right: 0.5rem;
-		width: 24px;
-		height: 24px;
+		top: 0.75rem;
+		right: 0.75rem;
+		width: 28px;
+		height: 28px;
 		border: none;
-		background: var(--danger-color, #dc3545);
+		background: linear-gradient(135deg, #f44336, #d32f2f);
 		color: white;
 		border-radius: 50%;
 		cursor: pointer;
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		font-size: 1.2rem;
+		font-size: 1.1rem;
+		font-weight: 700;
 		line-height: 1;
 		opacity: 0;
-		transition: all 0.2s;
+		transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+		box-shadow: 0 2px 8px rgba(244, 67, 54, 0.3);
+		transform: scale(0.8);
 	}
 
 	.note-item:hover .delete-btn {
 		opacity: 1;
+		transform: scale(1);
 	}
 
 	.delete-btn:hover {
-		background: var(--danger-hover-color, #c82333);
+		background: linear-gradient(135deg, #d32f2f, #c62828);
 		transform: scale(1.1);
+		box-shadow: 0 4px 12px rgba(244, 67, 54, 0.4);
+	}
+
+	.delete-btn:active {
+		transform: scale(1.05);
+		box-shadow: 0 2px 6px rgba(244, 67, 54, 0.3);
 	}
 
 	.empty-state {

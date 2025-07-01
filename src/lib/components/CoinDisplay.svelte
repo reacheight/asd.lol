@@ -18,79 +18,152 @@
 	<div class="chars-icon">
 		<img src="/chars-icon.png" alt="chars" />
 	</div>
-	<div class="chars-amount">
-		{$chars.toLocaleString()}
+	<div class="chars-content">
+		<div class="chars-amount">
+			{$chars.toLocaleString()}
+		</div>
+		<div class="chars-label">Chars</div>
 	</div>
-	<div class="chars-label">Chars</div>
 </div>
 
 <style>
 	.chars-display {
 		display: flex;
 		align-items: center;
-		gap: 0.5rem;
-		padding: 0.75rem 1rem;
-		background: linear-gradient(135deg, #4fc3f7, #29b6f6);
-		border-radius: 12px;
-		box-shadow: 0 2px 8px rgba(79, 195, 247, 0.3);
-		transition: all 0.3s ease;
-		border: 2px solid #03a9f4;
+		gap: 0.75rem;
+		padding: 0.75rem 1.25rem;
+		background: linear-gradient(135deg, 
+			rgba(79, 195, 247, 0.15), 
+			rgba(41, 182, 246, 0.25)
+		);
+		backdrop-filter: blur(20px);
+		border: 1px solid rgba(79, 195, 247, 0.3);
+		border-radius: 16px;
+		box-shadow: 
+			0 8px 32px rgba(79, 195, 247, 0.15),
+			inset 0 1px 0 rgba(255, 255, 255, 0.2);
+		transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+		position: relative;
+		overflow: hidden;
+	}
+
+	.chars-display::before {
+		content: '';
+		position: absolute;
+		top: 0;
+		left: -100%;
+		width: 100%;
+		height: 100%;
+		background: linear-gradient(90deg, 
+			transparent, 
+			rgba(255, 255, 255, 0.1), 
+			transparent
+		);
+		transition: left 0.6s ease;
+	}
+
+	.chars-display:hover::before {
+		left: 100%;
+	}
+
+	.chars-display:hover {
+		transform: translateY(-2px);
+		box-shadow: 
+			0 12px 40px rgba(79, 195, 247, 0.25),
+			inset 0 1px 0 rgba(255, 255, 255, 0.3);
+		border-color: rgba(79, 195, 247, 0.4);
 	}
 
 	.chars-display.animate {
-		animation: charsGain 0.5s ease-out;
+		animation: charsGain 0.6s cubic-bezier(0.4, 0, 0.2, 1);
 	}
 
 	.chars-icon {
-		width: 1.5rem;
-		height: 1.5rem;
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		animation: bounce 2s ease-in-out infinite;
+		box-shadow: 0 4px 12px rgba(79, 195, 247, 0.3);
+		animation: iconFloat 3s ease-in-out infinite;
 	}
 
 	.chars-icon img {
-		width: 100%;
-		height: 100%;
+		width: 32px;
+		height: 32px;
 		object-fit: contain;
-		filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.2));
+		filter: brightness(1.1) contrast(1.1);
+	}
+
+	.chars-content {
+		display: flex;
+		flex-direction: column;
+		gap: 0.125rem;
 	}
 
 	.chars-amount {
-		font-size: 1.3rem;
-		font-weight: bold;
-		color: #ffffff;
-		text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+		font-size: 1.4rem;
+		font-weight: 700;
+		color: #1565c0;
+		text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+		line-height: 1;
 	}
 
 	.chars-label {
-		font-size: 0.9rem;
-		color: #ffffff;
-		font-weight: 500;
+		font-size: 0.75rem;
+		color: #1976d2;
+		font-weight: 600;
 		text-transform: uppercase;
-		letter-spacing: 0.5px;
+		letter-spacing: 1px;
+		opacity: 0.8;
+		line-height: 1;
 	}
 
 	@keyframes charsGain {
 		0% {
-			transform: scale(1);
+			transform: scale(1) translateY(0);
 		}
-		50% {
-			transform: scale(1.1);
-			box-shadow: 0 4px 12px rgba(79, 195, 247, 0.5);
+		30% {
+			transform: scale(1.05) translateY(-3px);
 		}
 		100% {
-			transform: scale(1);
+			transform: scale(1) translateY(0);
 		}
 	}
 
-	@keyframes bounce {
+	@keyframes iconFloat {
 		0%, 100% {
-			transform: scale(1) translateY(0);
+			transform: translateY(0) rotate(0deg);
 		}
-		50% {
-			transform: scale(1.05) translateY(-2px);
+		33% {
+			transform: translateY(-2px) rotate(1deg);
+		}
+		66% {
+			transform: translateY(1px) rotate(-1deg);
+		}
+	}
+
+	/* Responsive */
+	@media (max-width: 768px) {
+		.chars-display {
+			padding: 0.625rem 1rem;
+			gap: 0.5rem;
+		}
+
+		.chars-icon {
+			width: 28px;
+			height: 28px;
+		}
+
+		.chars-icon img {
+			width: 18px;
+			height: 18px;
+		}
+
+		.chars-amount {
+			font-size: 1.2rem;
+		}
+
+		.chars-label {
+			font-size: 0.7rem;
 		}
 	}
 </style> 

@@ -139,16 +139,21 @@
 			<!-- Emoji Toolbar -->
 			{#if hasAnyEmojiPack}
 				<div class="emoji-section">
-					<div class="emoji-header">
-						<span class="emoji-label">ASCII Emojis</span>
-						<button 
-							class="emoji-toggle"
-							on:click={() => isEmojiToolbarCollapsed = !isEmojiToolbarCollapsed}
-							title={isEmojiToolbarCollapsed ? 'Show Emojis' : 'Hide Emojis'}
-						>
-							{isEmojiToolbarCollapsed ? '▼' : '▲'}
-						</button>
-					</div>
+					<button 
+						class="emoji-section-header"
+						on:click={() => isEmojiToolbarCollapsed = !isEmojiToolbarCollapsed}
+						title={isEmojiToolbarCollapsed ? 'Show ASCII Emojis' : 'Hide ASCII Emojis'}
+					>
+						<div class="emoji-header-content">
+							<span class="emoji-label">ASCII Emojis</span>
+							<span class="emoji-count">({availableEmojis.length} available)</span>
+						</div>
+						<div class="emoji-chevron" class:collapsed={isEmojiToolbarCollapsed}>
+							<svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+								<path d="M4 6L8 10L12 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+							</svg>
+						</div>
+					</button>
 					
 					{#if !isEmojiToolbarCollapsed}
 						<div class="emoji-toolbar">
@@ -236,84 +241,169 @@
 	}
 
 	.emoji-section {
-		margin-top: 0.5rem;
+		margin-top: 0.75rem;
 	}
 
-	.emoji-header {
+	.emoji-section-header {
+		width: 100%;
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
+		padding: 0.75rem 1rem;
+		background: linear-gradient(135deg, 
+			rgba(248, 249, 250, 0.8), 
+			rgba(255, 255, 255, 0.9)
+		);
+		border: 1px solid rgba(0, 0, 0, 0.08);
+		border-radius: 12px;
+		cursor: pointer;
+		transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+		box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
 		margin-bottom: 0.5rem;
 	}
 
+	.emoji-section-header:hover {
+		background: linear-gradient(135deg, 
+			rgba(255, 255, 255, 0.95), 
+			rgba(240, 248, 255, 0.9)
+		);
+		border-color: rgba(79, 195, 247, 0.3);
+		box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+		transform: translateY(-1px);
+	}
+
+	.emoji-header-content {
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
+	}
+
 	.emoji-label {
-		font-size: 0.9rem;
+		font-size: 0.95rem;
 		font-weight: 600;
 		color: var(--text-color, #333);
 	}
 
-	.emoji-toggle {
-		background: var(--accent-color, #007acc);
-		color: white;
-		border: none;
-		border-radius: 4px;
-		padding: 0.25rem 0.5rem;
-		cursor: pointer;
+	.emoji-count {
 		font-size: 0.8rem;
-		transition: all 0.2s;
+		color: var(--muted-color, #666);
+		font-weight: 500;
 	}
 
-	.emoji-toggle:hover {
-		background: var(--accent-hover-color, #005a9e);
+	.emoji-chevron {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 24px;
+		height: 24px;
+		border-radius: 6px;
+		background: rgba(79, 195, 247, 0.1);
+		color: #4fc3f7;
+		transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+	}
+
+	.emoji-chevron.collapsed {
+		transform: rotate(-90deg);
+	}
+
+	.emoji-section-header:hover .emoji-chevron {
+		background: rgba(79, 195, 247, 0.2);
+		color: #29b6f6;
 	}
 
 	.emoji-toolbar {
 		display: flex;
 		flex-direction: column;
-		gap: 0.75rem;
+		gap: 1rem;
 		max-height: 200px;
 		overflow-y: auto;
-		padding: 0.5rem;
-		background: var(--card-bg, #fff);
-		border: 1px solid var(--border-color, #e5e5e5);
-		border-radius: 6px;
+		padding: 1rem;
+		background: linear-gradient(135deg, 
+			rgba(255, 255, 255, 0.9), 
+			rgba(248, 249, 250, 0.8)
+		);
+		border: 1px solid rgba(0, 0, 0, 0.08);
+		border-radius: 12px;
+		box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+		animation: slideDown 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+	}
+
+	@keyframes slideDown {
+		from {
+			opacity: 0;
+			transform: translateY(-10px);
+		}
+		to {
+			opacity: 1;
+			transform: translateY(0);
+		}
 	}
 
 	.emoji-pack {
 		display: flex;
 		flex-direction: column;
-		gap: 0.25rem;
+		gap: 0.5rem;
 	}
 
 	.pack-label {
 		font-size: 0.75rem;
-		font-weight: 600;
+		font-weight: 700;
 		color: var(--muted-color, #666);
 		text-transform: uppercase;
-		letter-spacing: 0.5px;
+		letter-spacing: 1px;
+		padding-bottom: 0.25rem;
+		border-bottom: 1px solid rgba(0, 0, 0, 0.06);
 	}
 
 	.pack-emojis {
 		display: flex;
-		gap: 0.25rem;
+		gap: 0.375rem;
 		flex-wrap: wrap;
 	}
 
 	.emoji-btn {
-		padding: 0.25rem 0.5rem;
-		border: 1px solid var(--border-color, #ddd);
-		background: var(--button-bg, #fff);
-		border-radius: 4px;
+		padding: 0.375rem 0.625rem;
+		border: 1px solid rgba(0, 0, 0, 0.08);
+		background: linear-gradient(135deg, 
+			rgba(255, 255, 255, 0.9), 
+			rgba(248, 249, 250, 0.8)
+		);
+		border-radius: 6px;
 		cursor: pointer;
 		font-size: 0.9rem;
-		transition: all 0.2s;
+		transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 		font-family: monospace;
+		box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+		position: relative;
+		overflow: hidden;
+	}
+
+	.emoji-btn::before {
+		content: '';
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		background: linear-gradient(135deg, #4fc3f7, #29b6f6);
+		opacity: 0;
+		transition: opacity 0.3s ease;
 	}
 
 	.emoji-btn:hover {
-		background: var(--button-hover-bg, #f0f0f0);
+		background: linear-gradient(135deg, #f0f8ff, #e3f2fd);
+		border-color: rgba(79, 195, 247, 0.3);
 		transform: translateY(-1px);
-		box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+		box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+	}
+
+	.emoji-btn:hover::before {
+		opacity: 0.1;
+	}
+
+	.emoji-btn:active {
+		transform: translateY(0);
+		box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 	}
 
 	.text-editor {

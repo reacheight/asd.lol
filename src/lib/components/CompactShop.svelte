@@ -167,19 +167,49 @@
 	}
 
 	.collapse-btn {
-		background: var(--accent-color, #007acc);
+		background: linear-gradient(135deg, #4fc3f7, #29b6f6);
 		color: white;
 		border: none;
-		border-radius: 4px;
-		padding: 0.5rem;
+		border-radius: 8px;
+		padding: 0.5rem 0.75rem;
 		cursor: pointer;
 		font-size: 0.8rem;
-		transition: all 0.2s;
+		font-weight: 600;
+		transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 		flex-shrink: 0;
+		box-shadow: 0 2px 8px rgba(79, 195, 247, 0.3);
+		position: relative;
+		overflow: hidden;
+	}
+
+	.collapse-btn::before {
+		content: '';
+		position: absolute;
+		top: 0;
+		left: -100%;
+		width: 100%;
+		height: 100%;
+		background: linear-gradient(90deg, 
+			transparent, 
+			rgba(255, 255, 255, 0.2), 
+			transparent
+		);
+		transition: left 0.5s ease;
+	}
+
+	.collapse-btn:hover::before {
+		left: 100%;
 	}
 
 	.collapse-btn:hover {
-		background: var(--accent-hover-color, #005a9e);
+		background: linear-gradient(135deg, #29b6f6, #1e88e5);
+		transform: translateY(-1px);
+		box-shadow: 0 4px 12px rgba(79, 195, 247, 0.4);
+	}
+
+	.collapse-btn:active {
+		transform: translateY(0);
+		box-shadow: 0 2px 6px rgba(79, 195, 247, 0.3);
 	}
 
 	.shop-header h3 {
@@ -199,42 +229,62 @@
 	}
 
 	.category-btn {
-		padding: 0.4rem 0.6rem;
-		border: 1px solid var(--border-color, #ddd);
-		background: var(--button-bg, #fff);
-		border-radius: 6px;
+		padding: 0.5rem 0.75rem;
+		border: 1px solid rgba(0, 0, 0, 0.08);
+		background: linear-gradient(135deg, 
+			rgba(255, 255, 255, 0.9), 
+			rgba(248, 249, 250, 0.8)
+		);
+		border-radius: 8px;
 		cursor: pointer;
 		font-size: 0.8rem;
-		font-weight: 500;
-		transition: all 0.2s;
+		font-weight: 600;
+		transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 		flex: 1;
 		min-width: 45px;
 		text-align: center;
 		display: flex;
 		align-items: center;
 		justify-content: center;
+		box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+		position: relative;
+		overflow: hidden;
+	}
+
+	.category-btn::before {
+		content: '';
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		background: linear-gradient(135deg, #4fc3f7, #29b6f6);
+		opacity: 0;
+		transition: opacity 0.3s ease;
 	}
 
 	.category-btn:hover {
-		border-color: var(--accent-color, #007acc);
-		background: var(--button-hover-bg, #f0f8ff);
+		border-color: rgba(79, 195, 247, 0.3);
+		transform: translateY(-1px);
+		box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+	}
+
+	.category-btn:hover::before {
+		opacity: 0.1;
 	}
 
 	.category-btn.active {
-		background: var(--accent-color, #007acc);
+		background: linear-gradient(135deg, #4fc3f7, #29b6f6);
 		color: white;
-		border-color: var(--accent-color, #007acc);
+		border-color: #29b6f6;
+		box-shadow: 0 4px 12px rgba(79, 195, 247, 0.3);
 	}
 
 	.category-icon {
 		width: 16px;
 		height: 16px;
 		object-fit: contain;
-		filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.1));
-	}
-
-	.category-btn.active .category-icon {
-		filter: brightness(0) invert(1) drop-shadow(0 1px 2px rgba(0, 0, 0, 0.2));
+		transition: all 0.3s ease;
 	}
 
 	.category-text {
@@ -345,26 +395,60 @@
 	}
 
 	.purchase-btn.compact {
-		padding: 0.3rem 0.6rem;
-		background: var(--accent-color, #007acc);
+		padding: 0.4rem 0.8rem;
+		background: linear-gradient(135deg, #4fc3f7, #29b6f6);
 		color: white;
 		border: none;
-		border-radius: 4px;
+		border-radius: 8px;
 		cursor: pointer;
 		font-size: 0.75rem;
-		font-weight: 500;
-		transition: all 0.2s;
+		font-weight: 600;
+		transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 		white-space: nowrap;
+		box-shadow: 0 2px 8px rgba(79, 195, 247, 0.3);
+		position: relative;
+		overflow: hidden;
+	}
+
+	.purchase-btn.compact::before {
+		content: '';
+		position: absolute;
+		top: 0;
+		left: -100%;
+		width: 100%;
+		height: 100%;
+		background: linear-gradient(90deg, 
+			transparent, 
+			rgba(255, 255, 255, 0.2), 
+			transparent
+		);
+		transition: left 0.5s ease;
+	}
+
+	.purchase-btn.compact:hover:not(.disabled)::before {
+		left: 100%;
 	}
 
 	.purchase-btn.compact:hover:not(.disabled) {
-		background: var(--accent-hover-color, #005a9e);
+		background: linear-gradient(135deg, #29b6f6, #1e88e5);
+		transform: translateY(-1px);
+		box-shadow: 0 4px 12px rgba(79, 195, 247, 0.4);
+	}
+
+	.purchase-btn.compact:active:not(.disabled) {
+		transform: translateY(0);
+		box-shadow: 0 2px 6px rgba(79, 195, 247, 0.3);
 	}
 
 	.purchase-btn.compact.disabled {
-		background: var(--disabled-color, #ccc);
+		background: linear-gradient(135deg, #e0e0e0, #bdbdbd);
 		cursor: not-allowed;
 		opacity: 0.6;
+		box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+	}
+
+	.purchase-btn.compact.disabled::before {
+		display: none;
 	}
 
 	.owned-badge {

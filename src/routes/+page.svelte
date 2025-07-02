@@ -77,7 +77,7 @@
 		height: 100vh;
 		display: flex;
 		flex-direction: column;
-		background: var(--bg-color);
+		background: var(--background);
 	}
 
 	.top-bar {
@@ -85,8 +85,8 @@
 		justify-content: space-between;
 		align-items: center;
 		padding: 1rem 1.5rem;
-		background: var(--header-bg);
-		border-bottom: 2px solid var(--border-color);
+		background: var(--background);
+		border-bottom: 2px solid var(--border);
 		box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 		flex-shrink: 0;
 	}
@@ -94,14 +94,14 @@
 	.app-title h1 {
 		margin: 0;
 		font-size: 1.5rem;
-		color: var(--text-color);
+		color: var(--foreground);
 		font-weight: 700;
 	}
 
 	.app-title p {
 		margin: 0.25rem 0 0 0;
 		font-size: 0.9rem;
-		color: var(--muted-color);
+		color: var(--muted-foreground);
 		font-weight: 500;
 	}
 
@@ -124,7 +124,7 @@
 	.notes-sidebar {
 		width: 300px;
 		flex-shrink: 0;
-		border-right: 2px solid var(--border-color);
+		border-right: 2px solid var(--border);
 	}
 
 	.editor-section {
@@ -141,7 +141,7 @@
 
 	.shop-sidebar {
 		flex-shrink: 0;
-		border-left: 2px solid var(--border-color);
+		border-left: 2px solid var(--border);
 	}
 
 	/* Responsive Design */
@@ -155,7 +155,7 @@
 			width: 100%;
 			height: 200px;
 			border-right: none;
-			border-bottom: 2px solid var(--border-color);
+			border-bottom: 2px solid var(--border);
 		}
 
 		.editor-section {
@@ -166,7 +166,7 @@
 		.shop-sidebar {
 			order: 3;
 			border-left: none;
-			border-top: 2px solid var(--border-color);
+			border-top: 2px solid var(--border);
 		}
 	}
 

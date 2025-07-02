@@ -29,7 +29,7 @@
 
 <svelte:head>
 	<title>asd.lol - your second stimulation-addicted brain</title>
-	<meta name="description" content="asd.lol - your second stimulation-addicted brain - literally the worst place to write texts" />
+	<meta name="description" content="literally the worst place to write texts" />
 </svelte:head>
 
 <div class="app-container">

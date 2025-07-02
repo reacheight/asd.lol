@@ -15,7 +15,7 @@
 		{ id: 'font', name: 'Fonts', icon: '/font-icon.png', label: 'Font' },
 		{ id: 'theme', name: 'Themes', icon: '/theme-icon.png', label: 'Theme' },
 		{ id: 'sound', name: 'Sounds', icon: '/sound-icon.png', label: 'Sound' },
-		{ id: 'emoji', name: 'Emojis', icon: 'text', label: ':)' }
+		{ id: 'emoji', name: 'Emojis', icon: 'text', label: '( ͡° ͜ʖ ͡°)' }
 	];
 
 	$: filteredUpgrades = $upgrades.filter(upgrade => 
@@ -43,7 +43,7 @@
 			case 'font': return { type: 'image', value: '/font-icon.png' };
 			case 'theme': return { type: 'image', value: '/theme-icon.png' };
 			case 'sound': return { type: 'image', value: '/sound-icon.png' };
-			case 'emoji': return { type: 'text', value: ':)' };
+			case 'emoji': return { type: 'text', value: '( ͡° ͜ʖ ͡°)' };
 			default: return { type: 'text', value: 'Item' };
 		}
 	}

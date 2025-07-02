@@ -1,5 +1,11 @@
 <script lang="ts">
 	import { upgrades, chars, purchaseUpgrade, type Upgrade } from '../stores.js';
+	import { Button } from '$lib/components/ui/button';
+	import { Card, CardContent, CardHeader } from '$lib/components/ui/card';
+	import { Badge } from '$lib/components/ui/badge';
+	import { Separator } from '$lib/components/ui/separator';
+	import { cn } from '$lib/utils';
+	import { Store } from 'lucide-svelte';
 
 	let selectedCategory: string = 'all';
 	let isCollapsed = false;
@@ -43,98 +49,152 @@
 	}
 </script>
 
-<div class="compact-shop" class:collapsed={isCollapsed}>
-	<div class="shop-header">
-		<button 
-			class="collapse-btn"
-			on:click={() => isCollapsed = !isCollapsed}
-			title={isCollapsed ? 'Expand Shop' : 'Collapse Shop'}
-		>
-			{isCollapsed ? '◀' : '▶'}
-		</button>
-		{#if !isCollapsed}
-			<h3>Shop</h3>
-		{/if}
+<div class={cn(
+	"flex flex-col h-full bg-muted/30 border-r transition-all duration-300 ease-in-out",
+	isCollapsed ? "w-16" : "w-72"
+)}>
+	<div class="flex items-center justify-between p-4 border-b bg-background">
+		<div class="flex items-center gap-3">
+			<Button
+				variant="ghost"
+				size="icon"
+				class="h-8 w-8 shrink-0"
+				onclick={() => isCollapsed = !isCollapsed}
+				title={isCollapsed ? 'Expand Shop' : 'Collapse Shop'}
+			>
+				<Store class="h-5 w-5 text-primary" />
+			</Button>
+			{#if !isCollapsed}
+				<h3 class="text-lg font-semibold text-foreground">Shop</h3>
+			{/if}
+		</div>
 	</div>
 
 	{#if !isCollapsed}
-		<div class="category-filter">
+		<div class="flex flex-wrap gap-2 p-3 border-b bg-background">
 			{#each categories as category}
-				<button
-					class="category-btn"
-					class:active={selectedCategory === category.id}
-					on:click={() => selectedCategory = category.id}
+				<Button
+					variant={selectedCategory === category.id ? "default" : "outline"}
+					size="sm"
+					class="h-8 px-3 text-xs"
+					onclick={() => selectedCategory = category.id}
 					title={category.name}
 				>
 					{#if category.icon === 'text'}
-						<span class="category-text">{category.label}</span>
+						<span>{category.label}</span>
 					{:else}
-						<img src={category.icon} alt={category.name} class="category-icon" />
+						<img src={category.icon} alt={category.name} class="w-3 h-3 mr-1" />
+						<span class="hidden sm:inline">{category.label}</span>
 					{/if}
-				</button>
+				</Button>
 			{/each}
 		</div>
 
-		<div class="shop-content">
+		<div class="flex-1 overflow-y-auto p-3 space-y-4">
 			{#if availableUpgrades.length > 0}
-				<div class="upgrades-section">
-					<h4>Available</h4>
-					{#each availableUpgrades as upgrade (upgrade.id)}
-						<div class="upgrade-card compact">
-							<div class="upgrade-header">
-								{#if getUpgradeIcon(upgrade.type).type === 'image'}
-									<img src={getUpgradeIcon(upgrade.type).value} alt={upgrade.type} class="upgrade-icon" />
-								{:else}
-									<span class="upgrade-text-icon">{getUpgradeIcon(upgrade.type).value}</span>
-								{/if}
-								<div class="upgrade-info">
-									<h5>{upgrade.name}</h5>
-									<p>{upgrade.description}</p>
-								</div>
-							</div>
-							
-							<div class="upgrade-footer">
-								<div class="upgrade-cost">
-									{upgrade.cost} chars
-								</div>
-								<button
-									class="purchase-btn compact"
-									class:disabled={$chars < upgrade.cost}
-									disabled={$chars < upgrade.cost}
-									on:click={() => handlePurchase(upgrade.id)}
-								>
-									{$chars >= upgrade.cost ? 'Buy' : 'Need More'}
-								</button>
-							</div>
-						</div>
-					{/each}
+				<div class="space-y-2">
+					<h4 class="text-sm font-medium text-muted-foreground uppercase tracking-wide px-1">
+						Available
+					</h4>
+					<div class="space-y-2">
+						{#each availableUpgrades as upgrade (upgrade.id)}
+							<Card class="p-0 hover:shadow-md transition-shadow">
+								<CardContent class="p-3">
+									<div class="flex items-start gap-3">
+										<div class="flex items-center justify-center w-8 h-8 bg-muted rounded-lg shrink-0">
+											{#if getUpgradeIcon(upgrade.type).type === 'image'}
+												<img 
+													src={getUpgradeIcon(upgrade.type).value} 
+													alt={upgrade.type} 
+													class="w-4 h-4 object-contain"
+												/>
+											{:else}
+												<span class="text-xs font-medium">
+													{getUpgradeIcon(upgrade.type).value}
+												</span>
+											{/if}
+										</div>
+										
+										<div class="flex-1 min-w-0">
+											<h5 class="font-medium text-sm text-foreground line-clamp-1">
+												{upgrade.name}
+											</h5>
+											<p class="text-xs text-muted-foreground line-clamp-2 mt-1">
+												{upgrade.description}
+											</p>
+											
+											<div class="flex items-center justify-between mt-3">
+												<Badge variant="secondary" class="text-xs">
+													{upgrade.cost} chars
+												</Badge>
+												<Button
+													size="sm"
+													class="h-7 px-3 text-xs"
+													disabled={$chars < upgrade.cost}
+													onclick={() => handlePurchase(upgrade.id)}
+												>
+													{$chars >= upgrade.cost ? 'Buy' : 'Need More'}
+												</Button>
+											</div>
+										</div>
+									</div>
+								</CardContent>
+							</Card>
+						{/each}
+					</div>
 				</div>
 			{/if}
 
 			{#if purchasedUpgrades.length > 0}
-				<div class="upgrades-section">
-					<h4>Owned</h4>
-					{#each purchasedUpgrades as upgrade (upgrade.id)}
-						<div class="upgrade-card compact purchased">
-							<div class="upgrade-header">
-								{#if getUpgradeIcon(upgrade.type).type === 'image'}
-									<img src={getUpgradeIcon(upgrade.type).value} alt={upgrade.type} class="upgrade-icon" />
-								{:else}
-									<span class="upgrade-text-icon">{getUpgradeIcon(upgrade.type).value}</span>
-								{/if}
-								<div class="upgrade-info">
-									<h5>{upgrade.name}</h5>
-								</div>
-							</div>
-							<div class="owned-badge">Owned</div>
-						</div>
-					{/each}
+				{#if availableUpgrades.length > 0}
+					<Separator />
+				{/if}
+				<div class="space-y-2">
+					<h4 class="text-sm font-medium text-muted-foreground uppercase tracking-wide px-1">
+						Owned
+					</h4>
+					<div class="space-y-2">
+						{#each purchasedUpgrades as upgrade (upgrade.id)}
+							<Card class="p-0 bg-green-50/50 border-green-200">
+								<CardContent class="p-3">
+									<div class="flex items-center gap-3">
+										<div class="flex items-center justify-center w-8 h-8 bg-green-100 rounded-lg shrink-0">
+											{#if getUpgradeIcon(upgrade.type).type === 'image'}
+												<img 
+													src={getUpgradeIcon(upgrade.type).value} 
+													alt={upgrade.type} 
+													class="w-4 h-4 object-contain"
+												/>
+											{:else}
+												<span class="text-xs font-medium text-green-700">
+													{getUpgradeIcon(upgrade.type).value}
+												</span>
+											{/if}
+										</div>
+										
+										<div class="flex-1 min-w-0">
+											<h5 class="font-medium text-sm text-foreground">
+												{upgrade.name}
+											</h5>
+										</div>
+										
+										<Badge variant="secondary" class="bg-green-100 text-green-800 text-xs">
+											Owned
+										</Badge>
+									</div>
+								</CardContent>
+							</Card>
+						{/each}
+					</div>
 				</div>
 			{/if}
 
 			{#if filteredUpgrades.length === 0}
-				<div class="empty-category">
-					<p>No items in this category</p>
+				<div class="flex flex-col items-center justify-center h-32 text-center">
+					<div class="text-muted-foreground space-y-1">
+						<p class="text-sm font-medium">No items found</p>
+						<p class="text-xs">Try selecting a different category</p>
+					</div>
 				</div>
 			{/if}
 		</div>

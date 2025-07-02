@@ -1,5 +1,10 @@
 <script lang="ts">
 	import { notes, activeNoteId, createNote, type Note } from '../stores.js';
+	import { Button } from '$lib/components/ui/button';
+	import { Card, CardContent, CardHeader } from '$lib/components/ui/card';
+	import { Badge } from '$lib/components/ui/badge';
+	import { cn } from '$lib/utils';
+	import { Plus, X } from 'lucide-svelte';
 
 	function addNewNote() {
 		const newNote = createNote();
@@ -15,7 +20,6 @@
 		event.stopPropagation();
 		notes.update(allNotes => allNotes.filter(note => note.id !== noteId));
 		
-		// If the deleted note was active, clear the active note
 		activeNoteId.update(current => current === noteId ? null : current);
 	}
 
@@ -28,218 +32,64 @@
 	}
 </script>
 
-<div class="notes-list">
-	<div class="notes-header">
-		<h2>Notes</h2>
-		<button on:click={addNewNote} class="add-note-btn">
-			+ New Note
-		</button>
+<div class="flex h-full flex-col bg-muted/30 border-r">
+	<div class="flex items-center justify-between p-4 border-b bg-background">
+		<h2 class="text-xl font-semibold text-foreground">Notes</h2>
+		<Button onclick={addNewNote} size="sm" class="gap-2">
+			<Plus class="h-4 w-4" />
+			New Note
+		</Button>
 	</div>
 	
-	<div class="notes-container">
+	<div class="flex-1 overflow-y-auto p-2 space-y-2">
 		{#each $notes as note (note.id)}
-			<div 
-				class="note-item" 
-				class:active={$activeNoteId === note.id}
-				on:click={() => selectNote(note.id)}
+			<Card 
+				class={cn(
+					"cursor-pointer transition-all hover:shadow-md border-2 p-0",
+					$activeNoteId === note.id 
+						? "border-primary bg-primary/5 shadow-sm" 
+						: "border-border hover:border-primary/50"
+				)}
+				onclick={() => selectNote(note.id)}
 			>
-				<div class="note-content">
-					<h3 class="note-title">{note.title}</h3>
-					<p class="note-preview">
-						{note.content.slice(0, 100)}{note.content.length > 100 ? '...' : ''}
-					</p>
-					<div class="note-meta">
-						<span class="note-date">{formatDate(note.updatedAt)}</span>
-						<span class="note-chars">{note.content.length} chars</span>
+				<CardContent class="p-4 relative group">
+					<div class="space-y-2">
+						<h3 class="font-medium text-foreground line-clamp-1">
+							{note.title}
+						</h3>
+						
+						<p class="text-sm text-muted-foreground line-clamp-2 leading-relaxed">
+							{note.content.slice(0, 100)}{note.content.length > 100 ? '...' : ''}
+						</p>
+						
+						<div class="flex items-center justify-between">
+							<span class="text-xs text-muted-foreground">
+								{formatDate(note.updatedAt)}
+							</span>
+							<Badge variant="secondary" class="text-xs">
+								{note.content.length} chars
+							</Badge>
+						</div>
 					</div>
-				</div>
-				<button 
-					on:click={(e) => deleteNote(note.id, e)}
-					class="delete-btn"
-					title="Delete note"
-				>
-					×
-				</button>
-			</div>
+					
+					<Button
+						variant="destructive"
+						size="icon"
+						class="absolute top-2 right-2 h-6 w-6 opacity-0 group-hover:opacity-100 transition-opacity"
+						onclick={(e) => deleteNote(note.id, e)}
+						title="Delete note"
+					>
+						<X class="h-3 w-3" />
+					</Button>
+				</CardContent>
+			</Card>
 		{:else}
-			<div class="empty-state">
-				<p>No notes yet!</p>
-				<p>Create your first note to start earning chars.</p>
+			<div class="flex flex-col items-center justify-center h-64 text-center space-y-2">
+				<div class="text-muted-foreground space-y-1">
+					<p class="text-lg font-medium">No notes yet!</p>
+					<p class="text-sm">Create your first note to start earning chars.</p>
+				</div>
 			</div>
 		{/each}
 	</div>
-</div>
-
-<style>
-	.notes-list {
-		height: 100%;
-		display: flex;
-		flex-direction: column;
-		background: var(--sidebar-bg, #f8f9fa);
-		border-right: 1px solid var(--border-color, #e5e5e5);
-	}
-
-	.notes-header {
-		padding: 1rem;
-		border-bottom: 1px solid var(--border-color, #e5e5e5);
-		display: flex;
-		justify-content: space-between;
-		align-items: center;
-		background: var(--header-bg, #ffffff);
-	}
-
-	.notes-header h2 {
-		margin: 0;
-		color: var(--text-color, #333);
-		font-size: 1.3rem;
-	}
-
-	.add-note-btn {
-		padding: 0.625rem 1.25rem;
-		background: linear-gradient(135deg, #4fc3f7, #29b6f6);
-		color: white;
-		border: none;
-		border-radius: 12px;
-		cursor: pointer;
-		font-weight: 600;
-		font-size: 0.9rem;
-		transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-		box-shadow: 0 4px 12px rgba(79, 195, 247, 0.3);
-		position: relative;
-		overflow: hidden;
-	}
-
-	.add-note-btn::before {
-		content: '';
-		position: absolute;
-		top: 0;
-		left: -100%;
-		width: 100%;
-		height: 100%;
-		background: linear-gradient(90deg, 
-			transparent, 
-			rgba(255, 255, 255, 0.2), 
-			transparent
-		);
-		transition: left 0.5s ease;
-	}
-
-	.add-note-btn:hover::before {
-		left: 100%;
-	}
-
-	.add-note-btn:hover {
-		background: linear-gradient(135deg, #29b6f6, #1e88e5);
-		transform: translateY(-2px);
-		box-shadow: 0 6px 20px rgba(79, 195, 247, 0.4);
-	}
-
-	.add-note-btn:active {
-		transform: translateY(-1px);
-		box-shadow: 0 4px 12px rgba(79, 195, 247, 0.3);
-	}
-
-	.notes-container {
-		flex: 1;
-		overflow-y: auto;
-		padding: 0.5rem;
-	}
-
-	.note-item {
-		display: flex;
-		padding: 1rem;
-		margin-bottom: 0.5rem;
-		background: var(--note-bg, #ffffff);
-		border: 1px solid var(--border-color, #e5e5e5);
-		border-radius: 8px;
-		cursor: pointer;
-		transition: all 0.2s;
-		position: relative;
-	}
-
-	.note-item:hover {
-		border-color: var(--accent-color, #007acc);
-		box-shadow: 0 2px 8px rgba(0, 122, 204, 0.1);
-	}
-
-	.note-item.active {
-		border-color: var(--accent-color, #007acc);
-		background: var(--active-note-bg, #f0f8ff);
-		box-shadow: 0 2px 8px rgba(0, 122, 204, 0.2);
-	}
-
-	.note-content {
-		flex: 1;
-	}
-
-	.note-title {
-		margin: 0 0 0.5rem 0;
-		font-size: 1.1rem;
-		font-weight: 600;
-		color: var(--text-color, #333);
-		line-height: 1.3;
-	}
-
-	.note-preview {
-		margin: 0 0 0.5rem 0;
-		color: var(--muted-color, #666);
-		font-size: 0.9rem;
-		line-height: 1.4;
-	}
-
-	.note-meta {
-		display: flex;
-		justify-content: space-between;
-		font-size: 0.8rem;
-		color: var(--muted-color, #999);
-	}
-
-	.delete-btn {
-		position: absolute;
-		top: 0.75rem;
-		right: 0.75rem;
-		width: 28px;
-		height: 28px;
-		border: none;
-		background: linear-gradient(135deg, #f44336, #d32f2f);
-		color: white;
-		border-radius: 50%;
-		cursor: pointer;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		font-size: 1.1rem;
-		font-weight: 700;
-		line-height: 1;
-		opacity: 0;
-		transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-		box-shadow: 0 2px 8px rgba(244, 67, 54, 0.3);
-		transform: scale(0.8);
-	}
-
-	.note-item:hover .delete-btn {
-		opacity: 1;
-		transform: scale(1);
-	}
-
-	.delete-btn:hover {
-		background: linear-gradient(135deg, #d32f2f, #c62828);
-		transform: scale(1.1);
-		box-shadow: 0 4px 12px rgba(244, 67, 54, 0.4);
-	}
-
-	.delete-btn:active {
-		transform: scale(1.05);
-		box-shadow: 0 2px 6px rgba(244, 67, 54, 0.3);
-	}
-
-	.empty-state {
-		padding: 2rem;
-		text-align: center;
-		color: var(--muted-color, #666);
-	}
-
-	.empty-state p {
-		margin: 0.5rem 0;
-	}
-</style> 
+</div> 

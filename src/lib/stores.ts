@@ -1,5 +1,6 @@
 import { writable } from 'svelte/store';
 import { browser } from '$app/environment';
+import { defaultUpgrades, emojiPacks, type Upgrade } from './upgrades.js';
 
 export interface Note {
 	id: string;
@@ -9,15 +10,7 @@ export interface Note {
 	updatedAt: Date;
 }
 
-export interface Upgrade {
-	id: string;
-	name: string;
-	description: string;
-	cost: number;
-	type: 'font' | 'sound' | 'theme' | 'emoji';
-	value: string;
-	purchased: boolean;
-}
+export type { Upgrade };
 
 // Local storage helpers
 function loadFromStorage<T>(key: string, defaultValue: T): T {
@@ -39,135 +32,7 @@ function saveToStorage<T>(key: string, value: T): void {
 	}
 }
 
-// Default upgrades template
-const defaultUpgrades: Upgrade[] = [
-	{
-		id: 'font-comic',
-		name: 'Comic Sans',
-		description: 'you\'re not going to use this anyway',
-		cost: 10,
-		type: 'font',
-		value: '"Comic Sans MS", cursive',
-		purchased: false
-	},
-	{
-		id: 'font-mono',
-		name: 'Monospace',
-		description: 'Classic coding font for your notes',
-		cost: 100,
-		type: 'font',
-		value: 'monospace',
-		purchased: false
-	},
-	{
-		id: 'font-system-ui',
-		name: 'System UI',
-		description: 'Clean system font optimized for readability',
-		cost: 90,
-		type: 'font',
-		value: 'system-ui',
-		purchased: false
-	},
-	{
-		id: 'font-times',
-		name: 'Times New Roman',
-		description: 'Traditional newspaper and book font',
-		cost: 110,
-		type: 'font',
-		value: '"Times New Roman", Times, serif',
-		purchased: false
-	},
-	{
-		id: 'font-courier',
-		name: 'Courier New',
-		description: 'Typewriter-style monospace font',
-		cost: 130,
-		type: 'font',
-		value: '"Courier New", Courier, monospace',
-		purchased: false
-	},
-	{
-		id: 'font-impact',
-		name: 'Impact',
-		description: 'Bold, attention-grabbing display font',
-		cost: 170,
-		type: 'font',
-		value: 'Impact, Arial Black, sans-serif',
-		purchased: false
-	},
-	{
-		id: 'theme-dark',
-		name: 'Dark',
-		description: 'Easy on the eyes dark theme',
-		cost: 200,
-		type: 'theme',
-		value: 'dark',
-		purchased: false
-	},
-	{
-		id: 'theme-purple',
-		name: 'Purple',
-		description: 'Stylish purple color scheme',
-		cost: 250,
-		type: 'theme',
-		value: 'purple',
-		purchased: false
-	},
-	{
-		id: 'sound-typewriter',
-		name: 'Typewriter',
-		description: 'Classic typewriter clicking sounds',
-		cost: 300,
-		type: 'sound',
-		value: 'typewriter',
-		purchased: false
-	},
-	{
-		id: 'emoji-classic',
-		name: 'Classic Emotions',
-		description: 'Basic happy, sad, and surprised faces :) :( :D',
-		cost: 80,
-		type: 'emoji',
-		value: 'classic',
-		purchased: false
-	},
-	{
-		id: 'emoji-advanced',
-		name: 'Advanced Emotions',
-		description: 'More expressive faces ;-) :-P :-| :-O',
-		cost: 120,
-		type: 'emoji',
-		value: 'advanced',
-		purchased: false
-	},
-	{
-		id: 'emoji-love',
-		name: 'Love & Hearts',
-		description: 'Romantic expressions <3 </3 xoxo',
-		cost: 100,
-		type: 'emoji',
-		value: 'love',
-		purchased: false
-	},
-	{
-		id: 'emoji-celebration',
-		name: 'Celebration Pack',
-		description: 'Party and celebration emojis \\o/ \\m/ ★',
-		cost: 150,
-		type: 'emoji',
-		value: 'celebration',
-		purchased: false
-	},
-	{
-		id: 'emoji-memes',
-		name: 'Internet Classics',
-		description: 'Famous internet memes ¯\\_(ツ)_/¯ (╯°□°）╯︵ ┻━┻',
-		cost: 200,
-		type: 'emoji',
-		value: 'memes',
-		purchased: false
-	}
-];
+
 
 // Initialize data
 const initialNotes: Note[] = loadFromStorage('notes', []);
@@ -312,40 +177,6 @@ export function getAvailableSounds(upgradesArray: Upgrade[]): Array<{id: string,
 
 export function getAvailableEmojis(upgradesArray: Upgrade[]): Array<{emoji: string, title: string, pack: string}> {
 	const emojis: Array<{emoji: string, title: string, pack: string}> = [];
-	
-	const emojiPacks = {
-		classic: [
-			{ emoji: ':-)', title: 'Happy' },
-			{ emoji: ':-(', title: 'Sad' },
-			{ emoji: ':-D', title: 'Grin' }
-		],
-		advanced: [
-			{ emoji: ';-)', title: 'Wink' },
-			{ emoji: ':-P', title: 'Tongue' },
-			{ emoji: ':-|', title: 'Neutral' },
-			{ emoji: ':-O', title: 'Surprised' }
-		],
-		love: [
-			{ emoji: '<3', title: 'Heart' },
-			{ emoji: '</3', title: 'Broken Heart' },
-			{ emoji: 'xoxo', title: 'Hugs and Kisses' },
-			{ emoji: ':-*', title: 'Kiss' }
-		],
-		celebration: [
-			{ emoji: '\\o/', title: 'Celebrate' },
-			{ emoji: '\\m/', title: 'Rock On' },
-			{ emoji: '★', title: 'Star' },
-			{ emoji: '♪', title: 'Music' },
-			{ emoji: '\\o_O/', title: 'Party' }
-		],
-		memes: [
-			{ emoji: '¯\\_(ツ)_/¯', title: 'Shrug' },
-			{ emoji: '(╯°□°）╯︵ ┻━┻', title: 'Table Flip' },
-			{ emoji: '┬─┬ ノ( ゜-゜ノ)', title: 'Table Unflip' },
-			{ emoji: '( ͡° ͜ʖ ͡°)', title: 'Lenny Face' },
-			{ emoji: 'ಠ_ಠ', title: 'Disapproval' }
-		]
-	};
 	
 	upgradesArray
 		.filter(upgrade => upgrade.type === 'emoji' && upgrade.purchased)

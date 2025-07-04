@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { upgrades, chars, purchaseUpgrade, type Upgrade } from '../stores.js';
+	import { upgrades, chars, purchaseUpgrade } from '../stores.js';
 	import { Button } from '$lib/components/ui/button';
 	import { Card, CardContent, CardHeader } from '$lib/components/ui/card';
 	import { Badge } from '$lib/components/ui/badge';
@@ -81,7 +81,7 @@
 	"flex flex-col h-full bg-muted/30 border-r transition-all duration-300 ease-in-out",
 	isCollapsed ? "w-16" : "w-72"
 )}>
-	<div class="flex items-center justify-between p-4 border-b bg-background">
+	<div class="flex items-center justify-between px-4 pt-4 pb-2 bg-background">
 		<div class="flex items-center gap-3">
 			<Button
 				variant="ghost"

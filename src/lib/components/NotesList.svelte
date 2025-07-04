@@ -33,7 +33,7 @@
 </script>
 
 <div class="flex h-full flex-col bg-muted/30 border-r">
-	<div class="flex items-center justify-between p-4 border-b bg-background">
+	<div class="flex items-center justify-between px-4 pt-4 pb-2">
 		<h2 class="text-xl font-semibold text-foreground">Notes</h2>
 		<Button onclick={addNewNote} size="sm" class="gap-2">
 			<Plus class="h-4 w-4" />

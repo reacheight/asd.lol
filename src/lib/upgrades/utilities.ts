@@ -9,5 +9,14 @@ export const utilityUpgrades: Upgrade[] = [
 		type: 'utility',
 		value: 'copy',
 		purchased: false
+	},
+	{
+		id: 'utility-wordcount',
+		name: 'Word Counter',
+		description: 'see how many words you\'ve written',
+		cost: 75,
+		type: 'utility',
+		value: 'wordcount',
+		purchased: false
 	}
 ]; 

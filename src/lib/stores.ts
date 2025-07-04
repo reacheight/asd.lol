@@ -197,4 +197,8 @@ export function getAvailableEmojis(upgradesArray: Upgrade[]): Array<{emoji: stri
 
 export function hasCopyFeature(upgradesArray: Upgrade[]): boolean {
 	return upgradesArray.some(upgrade => upgrade.id === 'utility-copy' && upgrade.purchased);
+}
+
+export function hasWordCountFeature(upgradesArray: Upgrade[]): boolean {
+	return upgradesArray.some(upgrade => upgrade.id === 'utility-wordcount' && upgrade.purchased);
 } 

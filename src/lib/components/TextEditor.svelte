@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { notes, chars, addChars, currentFont, currentSound, upgrades, getAvailableEmojis, hasCopyFeature } from '../stores.js';
+	import { notes, chars, addChars, currentFont, currentSound, upgrades, getAvailableEmojis, hasCopyFeature, hasWordCountFeature } from '../stores.js';
 	import type { Note } from '../stores.js';
 	import { Separator } from '$lib/components/ui/separator';
 	import { Button } from '$lib/components/ui/button';
@@ -14,6 +14,7 @@
 	let availableEmojis = $derived(getAvailableEmojis($upgrades));
 	let hasAnyEmojiPack = $derived(availableEmojis.length > 0);
 	let copyFeatureUnlocked = $derived(hasCopyFeature($upgrades));
+	let wordCountFeatureUnlocked = $derived(hasWordCountFeature($upgrades));
 
 	onMount(() => {
 		if (note) {
@@ -122,6 +123,11 @@
 			console.error('Failed to copy text: ', err);
 		}
 	}
+
+	function countWords(text: string): number {
+		if (!text.trim()) return 0;
+		return text.trim().split(/\s+/).length;
+	}
 </script>
 
 <div class="flex flex-col h-full bg-background rounded-lg shadow-sm overflow-hidden">
@@ -185,7 +191,12 @@
 		</div>
 		
 		<div class="flex justify-between items-center px-4 py-2 border-t bg-muted/50 text-xs text-muted-foreground">
-			<span>{note.content.length} characters</span>
+			<div class="flex items-center gap-4">
+				<span>{note.content.length} characters</span>
+				{#if wordCountFeatureUnlocked}
+					<span>{countWords(note.content)} words</span>
+				{/if}
+			</div>
 			<span>
 				Last updated: {new Date(note.updatedAt).toLocaleDateString(navigator.language, { 
 					year: 'numeric', 

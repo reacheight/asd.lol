@@ -13,7 +13,7 @@ export const fontUpgrades: Upgrade[] = [
 	{
 		id: 'font-mono',
 		name: 'Monospace',
-		description: 'Classic coding font for your notes',
+		description: 'so you\'re like good with computers or something?',
 		cost: 100,
 		type: 'font',
 		value: 'monospace',
@@ -21,8 +21,8 @@ export const fontUpgrades: Upgrade[] = [
 	},
 	{
 		id: 'font-system-ui',
-		name: 'System UI',
-		description: 'Clean system font optimized for readability',
+		name: 'System Font',
+		description: 'mac users can\'t survive without this',
 		cost: 90,
 		type: 'font',
 		value: 'system-ui',

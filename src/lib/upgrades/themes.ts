@@ -4,7 +4,7 @@ export const themeUpgrades: Upgrade[] = [
 	{
 		id: 'theme-dark',
 		name: 'Dark',
-		description: 'Easy on the eyes dark theme',
+		description: 'think twice',
 		cost: 200,
 		type: 'theme',
 		value: 'dark',
@@ -13,7 +13,7 @@ export const themeUpgrades: Upgrade[] = [
 	{
 		id: 'theme-purple',
 		name: 'Purple',
-		description: 'Stylish purple color scheme',
+		description: 'for real men',
 		cost: 250,
 		type: 'theme',
 		value: 'purple',

@@ -43,7 +43,7 @@ function saveToStorage<T>(key: string, value: T): void {
 const defaultUpgrades: Upgrade[] = [
 	{
 		id: 'font-mono',
-		name: 'Monospace Font',
+		name: 'Monospace',
 		description: 'Classic coding font for your notes',
 		cost: 100,
 		type: 'font',
@@ -52,7 +52,7 @@ const defaultUpgrades: Upgrade[] = [
 	},
 	{
 		id: 'font-serif',
-		name: 'Serif Font',
+		name: 'Serif',
 		description: 'Elegant serif font for sophisticated writing',
 		cost: 150,
 		type: 'font',
@@ -61,7 +61,7 @@ const defaultUpgrades: Upgrade[] = [
 	},
 	{
 		id: 'font-system-ui',
-		name: 'System UI Font',
+		name: 'System UI',
 		description: 'Clean system font optimized for readability',
 		cost: 90,
 		type: 'font',
@@ -70,7 +70,7 @@ const defaultUpgrades: Upgrade[] = [
 	},
 	{
 		id: 'font-georgia',
-		name: 'Georgia Font',
+		name: 'Georgia',
 		description: 'Professional serif font perfect for articles',
 		cost: 140,
 		type: 'font',
@@ -79,7 +79,7 @@ const defaultUpgrades: Upgrade[] = [
 	},
 	{
 		id: 'font-helvetica',
-		name: 'Helvetica Font',
+		name: 'Helvetica',
 		description: 'Classic Swiss sans-serif design',
 		cost: 160,
 		type: 'font',
@@ -115,7 +115,7 @@ const defaultUpgrades: Upgrade[] = [
 	},
 	{
 		id: 'font-impact',
-		name: 'Impact Font',
+		name: 'Impact',
 		description: 'Bold, attention-grabbing display font',
 		cost: 170,
 		type: 'font',
@@ -124,7 +124,7 @@ const defaultUpgrades: Upgrade[] = [
 	},
 	{
 		id: 'theme-dark',
-		name: 'Dark Theme',
+		name: 'Dark',
 		description: 'Easy on the eyes dark theme',
 		cost: 200,
 		type: 'theme',
@@ -133,7 +133,7 @@ const defaultUpgrades: Upgrade[] = [
 	},
 	{
 		id: 'theme-purple',
-		name: 'Purple Theme',
+		name: 'Purple',
 		description: 'Stylish purple color scheme',
 		cost: 250,
 		type: 'theme',
@@ -142,7 +142,7 @@ const defaultUpgrades: Upgrade[] = [
 	},
 	{
 		id: 'sound-typewriter',
-		name: 'Typewriter Sounds',
+		name: 'Typewriter',
 		description: 'Classic typewriter clicking sounds',
 		cost: 300,
 		type: 'sound',
@@ -285,7 +285,7 @@ export function purchaseUpgrade(upgradeId: string): boolean {
 // Helper functions to get available options
 export function getAvailableFonts(upgradesArray: Upgrade[]): Array<{id: string, name: string, value: string}> {
 	const fonts = [
-		{ id: 'default', name: 'Default Font', value: 'sans-serif' }
+		{ id: 'default', name: 'Default', value: 'sans-serif' }
 	];
 	
 	upgradesArray
@@ -303,7 +303,7 @@ export function getAvailableFonts(upgradesArray: Upgrade[]): Array<{id: string, 
 
 export function getAvailableThemes(upgradesArray: Upgrade[]): Array<{id: string, name: string, value: string}> {
 	const themes = [
-		{ id: 'default', name: 'Default Theme', value: 'default' }
+		{ id: 'default', name: 'Default', value: 'default' }
 	];
 	
 	upgradesArray

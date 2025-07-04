@@ -79,7 +79,6 @@
   --disabled-color: var(--muted-foreground);
 }
 
-/* Dark Theme */
 [data-theme="dark"] {
   --background: oklch(0.129 0.042 264.695);
   --foreground: oklch(0.984 0.003 247.858);
@@ -128,7 +127,6 @@
   --coin-shadow: oklch(0.4 0.15 210 / 0.5);
 }
 
-/* Purple Theme */
 [data-theme="purple"] {
   --background: oklch(0.98 0.02 300);
   --foreground: oklch(0.2 0.1 280);
@@ -178,6 +176,8 @@
 }
 
 @theme {
+  --font-sans: Inter, 'Segoe UI', Roboto, sans-serif;
+  
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
@@ -232,7 +232,6 @@
 body {
   background-color: var(--color-background);
   color: var(--color-foreground);
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   margin: 0;
   padding: 0;
   height: 100vh;
@@ -245,7 +244,6 @@ body {
   flex-direction: column;
 }
 
-/* Custom animations for coin display */
 .coin-gain {
   animation: coinGain 0.6s cubic-bezier(0.4, 0, 0.2, 1);
 }
@@ -254,7 +252,6 @@ body {
   animation: coinFloat 3s ease-in-out infinite;
 }
 
-/* Custom keyframes */
 @keyframes coinGain {
   0% {
     transform: scale(1) translateY(0);
@@ -279,7 +276,6 @@ body {
   }
 }
 
-/* Font preview utility class */
 .font-preview {
   font-family: var(--font-family, inherit);
 }

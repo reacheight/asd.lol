@@ -42,6 +42,15 @@ function saveToStorage<T>(key: string, value: T): void {
 // Default upgrades template
 const defaultUpgrades: Upgrade[] = [
 	{
+		id: 'font-comic',
+		name: 'Comic Sans',
+		description: 'you\'re not going to use this anyway',
+		cost: 10,
+		type: 'font',
+		value: '"Comic Sans MS", cursive',
+		purchased: false
+	},
+	{
 		id: 'font-mono',
 		name: 'Monospace',
 		description: 'Classic coding font for your notes',
@@ -51,39 +60,12 @@ const defaultUpgrades: Upgrade[] = [
 		purchased: false
 	},
 	{
-		id: 'font-serif',
-		name: 'Serif',
-		description: 'Elegant serif font for sophisticated writing',
-		cost: 150,
-		type: 'font',
-		value: 'serif',
-		purchased: false
-	},
-	{
 		id: 'font-system-ui',
 		name: 'System UI',
 		description: 'Clean system font optimized for readability',
 		cost: 90,
 		type: 'font',
 		value: 'system-ui',
-		purchased: false
-	},
-	{
-		id: 'font-georgia',
-		name: 'Georgia',
-		description: 'Professional serif font perfect for articles',
-		cost: 140,
-		type: 'font',
-		value: 'Georgia, serif',
-		purchased: false
-	},
-	{
-		id: 'font-helvetica',
-		name: 'Helvetica',
-		description: 'Classic Swiss sans-serif design',
-		cost: 160,
-		type: 'font',
-		value: 'Helvetica, Arial, sans-serif',
 		purchased: false
 	},
 	{
@@ -102,15 +84,6 @@ const defaultUpgrades: Upgrade[] = [
 		cost: 130,
 		type: 'font',
 		value: '"Courier New", Courier, monospace',
-		purchased: false
-	},
-	{
-		id: 'font-comic',
-		name: 'Comic Sans',
-		description: 'Fun, casual font for creative writing',
-		cost: 80,
-		type: 'font',
-		value: '"Comic Sans MS", cursive',
 		purchased: false
 	},
 	{

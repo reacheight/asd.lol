@@ -10,6 +10,10 @@
 	let selectedCategory: string = 'all';
 	let isCollapsed = false;
 	
+	// Track which upgrades just became affordable
+	let newlyAffordable = new Set<string>();
+	let previousAffordabilityState = new Map<string, boolean>();
+	
 	const categories = [
 		{ id: 'all', name: 'All', icon: 'text', label: 'All' },
 		{ id: 'font', name: 'Fonts', icon: '/font-icon.png', label: 'Font' },
@@ -28,6 +32,30 @@
 	$: purchasedUpgrades = filteredUpgrades
 		.filter(upgrade => upgrade.purchased)
 		.sort((a, b) => a.cost - b.cost);
+
+	// Track affordability changes and trigger animations
+	$: {
+		const currentAffordabilityState = new Map<string, boolean>();
+		
+		availableUpgrades.forEach(upgrade => {
+			const isAffordable = $chars >= upgrade.cost;
+			const wasAffordable = previousAffordabilityState.get(upgrade.id) ?? false;
+			
+			currentAffordabilityState.set(upgrade.id, isAffordable);
+			
+			if (isAffordable && !wasAffordable && previousAffordabilityState.size > 0) {
+				newlyAffordable.add(upgrade.id);
+				
+				setTimeout(() => {
+					newlyAffordable.delete(upgrade.id);
+					newlyAffordable = new Set(newlyAffordable);
+				}, 1200);
+			}
+		});
+		
+		previousAffordabilityState = currentAffordabilityState;
+		newlyAffordable = new Set(newlyAffordable);
+	}
 
 	function handlePurchase(upgradeId: string) {
 		const success = purchaseUpgrade(upgradeId);
@@ -98,7 +126,10 @@
 					</h4>
 					<div class="space-y-2">
 						{#each availableUpgrades as upgrade (upgrade.id)}
-							<Card class="p-0 hover:shadow-md transition-shadow">
+							<Card class={cn(
+								"p-0 hover:shadow-md transition-shadow",
+								newlyAffordable.has(upgrade.id) && "newly-affordable"
+							)}>
 								<CardContent class="p-3">
 									<div class="flex items-start gap-3">
 										<div class="flex items-center justify-center w-8 h-8 bg-muted rounded-lg shrink-0">
@@ -525,6 +556,39 @@
 		padding: 1rem;
 		color: var(--muted-color, #666);
 		font-size: 0.8rem;
+	}
+
+	/* Newly Affordable Animation */
+	:global(.newly-affordable) {
+		animation: affordableBounce 1.2s ease-out;
+		border-color: #10b981 !important;
+	}
+
+	@keyframes affordableBounce {
+		0% {
+			transform: translateY(0) scale(1);
+		}
+		15% {
+			transform: translateY(-12px) scale(1.05);
+		}
+		30% {
+			transform: translateY(0) scale(1);
+		}
+		45% {
+			transform: translateY(-6px) scale(1.02);
+		}
+		60% {
+			transform: translateY(0) scale(1);
+		}
+		75% {
+			transform: translateY(-3px) scale(1.01);
+		}
+		90% {
+			transform: translateY(0) scale(1);
+		}
+		100% {
+			transform: translateY(0) scale(1);
+		}
 	}
 
 	/* Responsive */

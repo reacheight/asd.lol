@@ -206,4 +206,8 @@ export function hasWordCountFeature(upgradesArray: Upgrade[]): boolean {
 
 export function hasUndoFeature(upgradesArray: Upgrade[]): boolean {
 	return upgradesArray.some(upgrade => upgrade.id === 'utility-undo' && upgrade.purchased);
+}
+
+export function hasPasteFeature(upgradesArray: Upgrade[]): boolean {
+	return upgradesArray.some(upgrade => upgrade.id === 'utility-paste' && upgrade.purchased);
 } 

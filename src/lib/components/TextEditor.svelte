@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { notes, chars, addChars, currentFont, currentSound, upgrades, getAvailableEmojis, hasCopyFeature, hasWordCountFeature, hasUndoFeature, selectedShopCategory } from '../stores.js';
+	import { notes, chars, addChars, currentFont, currentSound, upgrades, getAvailableEmojis, hasCopyFeature, hasWordCountFeature, hasUndoFeature, hasPasteFeature, selectedShopCategory } from '../stores.js';
 	import type { Note } from '../stores.js';
 	import { Separator } from '$lib/components/ui/separator';
 	import { Button } from '$lib/components/ui/button';
@@ -17,6 +17,7 @@
 	let copyFeatureUnlocked = $derived(hasCopyFeature($upgrades));
 	let wordCountFeatureUnlocked = $derived(hasWordCountFeature($upgrades));
 	let undoFeatureUnlocked = $derived(hasUndoFeature($upgrades));
+	let pasteFeatureUnlocked = $derived(hasPasteFeature($upgrades));
 
 	onMount(() => {
 		if (note) {
@@ -132,11 +133,27 @@
 	}
 
 	function handleKeyDown(event: KeyboardEvent) {
+		// Block Ctrl+Z (undo) if undo feature is not unlocked
 		if (!undoFeatureUnlocked && event.ctrlKey && event.key === 'z') {
 			event.preventDefault();
 			
 			toast.error(`Undo blocked`, {
 				description: "Purchase Ctrl+Z rights to fix your life choices",
+				action: {
+					label: "Buy upgrade",
+					onClick: () => {
+						selectedShopCategory.set('utility');
+					}
+				}
+			});
+		}
+		
+		// Block Ctrl+V (paste) if paste feature is not unlocked
+		if (!pasteFeatureUnlocked && event.ctrlKey && event.key === 'v') {
+			event.preventDefault();
+			
+			toast.error(`Paste blocked`, {
+				description: "You need to purchase Ctrl+V rights to paste your own text",
 				action: {
 					label: "Buy upgrade",
 					onClick: () => {

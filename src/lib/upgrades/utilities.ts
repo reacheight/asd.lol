@@ -27,5 +27,14 @@ export const utilityUpgrades: Upgrade[] = [
 		type: 'utility',
 		value: 'undo',
 		purchased: false
+	},
+	{
+		id: 'utility-paste',
+		name: 'Ctrl+V rights',
+		description: 'even your own clipboard judges you',
+		cost: 200,
+		type: 'utility',
+		value: 'paste',
+		purchased: false
 	}
 ]; 

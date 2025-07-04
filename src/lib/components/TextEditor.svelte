@@ -1,9 +1,10 @@
 <script lang="ts">
-	import { notes, chars, addChars, currentFont, currentSound, upgrades, getAvailableEmojis, hasCopyFeature, hasWordCountFeature } from '../stores.js';
+	import { notes, chars, addChars, currentFont, currentSound, upgrades, getAvailableEmojis, hasCopyFeature, hasWordCountFeature, hasUndoFeature, selectedShopCategory } from '../stores.js';
 	import type { Note } from '../stores.js';
 	import { Separator } from '$lib/components/ui/separator';
 	import { Button } from '$lib/components/ui/button';
 	import { Copy, Check } from 'lucide-svelte';
+	import { toast } from "svelte-sonner";
 	import { onMount } from 'svelte';
 
 	let { note = $bindable() }: { note?: Note | null } = $props();
@@ -15,6 +16,7 @@
 	let hasAnyEmojiPack = $derived(availableEmojis.length > 0);
 	let copyFeatureUnlocked = $derived(hasCopyFeature($upgrades));
 	let wordCountFeatureUnlocked = $derived(hasWordCountFeature($upgrades));
+	let undoFeatureUnlocked = $derived(hasUndoFeature($upgrades));
 
 	onMount(() => {
 		if (note) {
@@ -128,6 +130,22 @@
 		if (!text.trim()) return 0;
 		return text.trim().split(/\s+/).length;
 	}
+
+	function handleKeyDown(event: KeyboardEvent) {
+		if (!undoFeatureUnlocked && event.ctrlKey && event.key === 'z') {
+			event.preventDefault();
+			
+			toast.error(`Undo blocked`, {
+				description: "Purchase Ctrl+Z rights to fix your life choices",
+				action: {
+					label: "Buy upgrade",
+					onClick: () => {
+						selectedShopCategory.set('utility');
+					}
+				}
+			});
+		}
+	}
 </script>
 
 <div class="flex flex-col h-full bg-background rounded-lg shadow-sm overflow-hidden">
@@ -168,6 +186,7 @@
 				bind:this={textArea}
 				bind:value={note.content}
 				oninput={handleInput}
+				onkeydown={handleKeyDown}
 				class="w-full h-full p-4 resize-none border-none outline-none text-foreground bg-background"
 				style="font-family: {$currentFont}"
 				placeholder="Start typing to earn chars... Every character gives you 1 char!"

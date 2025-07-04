@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { upgrades, chars, purchaseUpgrade } from '../stores.js';
+	import { upgrades, chars, purchaseUpgrade, selectedShopCategory } from '../stores.js';
 	import { Button } from '$lib/components/ui/button';
 	import { Card, CardContent, CardHeader } from '$lib/components/ui/card';
 	import { Badge } from '$lib/components/ui/badge';
@@ -7,7 +7,6 @@
 	import { cn } from '$lib/utils';
 	import { Store } from 'lucide-svelte';
 
-	let selectedCategory: string = 'all';
 	let isCollapsed = false;
 	
 	// Track which upgrades just became affordable
@@ -24,7 +23,7 @@
 	];
 
 	$: filteredUpgrades = $upgrades.filter(upgrade => 
-		selectedCategory === 'all' || upgrade.type === selectedCategory
+		$selectedShopCategory === 'all' || upgrade.type === $selectedShopCategory
 	);
 
 	$: availableUpgrades = filteredUpgrades
@@ -104,10 +103,10 @@
 		<div class="flex flex-wrap gap-2 p-3 border-b bg-background">
 			{#each categories as category}
 				<Button
-					variant={selectedCategory === category.id ? "default" : "outline"}
+					variant={$selectedShopCategory === category.id ? "default" : "outline"}
 					size="sm"
 					class="h-8 px-3 text-xs"
-					onclick={() => selectedCategory = category.id}
+					onclick={() => selectedShopCategory.set(category.id)}
 					title={category.name}
 				>
 					{#if category.icon === 'text'}

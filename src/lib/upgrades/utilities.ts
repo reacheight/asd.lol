@@ -18,5 +18,14 @@ export const utilityUpgrades: Upgrade[] = [
 		type: 'utility',
 		value: 'wordcount',
 		purchased: false
+	},
+	{
+		id: 'utility-undo',
+		name: 'Ctrl+Z rights',
+		description: 'the ability to fix your life choices',
+		cost: 400,
+		type: 'utility',
+		value: 'undo',
+		purchased: false
 	}
 ]; 

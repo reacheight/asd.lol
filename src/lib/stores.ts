@@ -71,6 +71,7 @@ export const activeNoteId = writable<string | null>(null);
 export const currentTheme = writable<string>(loadFromStorage('currentTheme', 'default'));
 export const currentFont = writable<string>(loadFromStorage('currentFont', 'sans-serif'));
 export const currentSound = writable<string>(loadFromStorage('currentSound', 'none'));
+export const selectedShopCategory = writable<string>('all');
 
 // Subscribe to changes and save to localStorage
 notes.subscribe(value => saveToStorage('notes', value));
@@ -201,4 +202,8 @@ export function hasCopyFeature(upgradesArray: Upgrade[]): boolean {
 
 export function hasWordCountFeature(upgradesArray: Upgrade[]): boolean {
 	return upgradesArray.some(upgrade => upgrade.id === 'utility-wordcount' && upgrade.purchased);
+}
+
+export function hasUndoFeature(upgradesArray: Upgrade[]): boolean {
+	return upgradesArray.some(upgrade => upgrade.id === 'utility-undo' && upgrade.purchased);
 } 

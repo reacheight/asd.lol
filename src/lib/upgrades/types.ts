@@ -3,7 +3,7 @@ export interface Upgrade {
 	name: string;
 	description: string;
 	cost: number;
-	type: 'font' | 'sound' | 'theme' | 'emoji';
+	type: 'font' | 'sound' | 'theme' | 'emoji' | 'utility';
 	value: string;
 	purchased: boolean;
 } 

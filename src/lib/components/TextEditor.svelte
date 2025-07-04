@@ -1,16 +1,19 @@
 <script lang="ts">
-	import { notes, chars, addChars, currentFont, currentSound, upgrades, getAvailableEmojis } from '../stores.js';
+	import { notes, chars, addChars, currentFont, currentSound, upgrades, getAvailableEmojis, hasCopyFeature } from '../stores.js';
 	import type { Note } from '../stores.js';
 	import { Separator } from '$lib/components/ui/separator';
 	import { Button } from '$lib/components/ui/button';
+	import { Copy, Check } from 'lucide-svelte';
 	import { onMount } from 'svelte';
 
 	let { note = $bindable() }: { note?: Note | null } = $props();
 	let textArea = $state<HTMLTextAreaElement>();
 	let lastContentLength = 0;
+	let copySuccess = $state(false);
 
 	let availableEmojis = $derived(getAvailableEmojis($upgrades));
 	let hasAnyEmojiPack = $derived(availableEmojis.length > 0);
+	let copyFeatureUnlocked = $derived(hasCopyFeature($upgrades));
 
 	onMount(() => {
 		if (note) {
@@ -105,6 +108,20 @@
 			return allNotes;
 		});
 	}
+
+	async function copyToClipboard() {
+		if (!note) return;
+		
+		try {
+			await navigator.clipboard.writeText(note.content);
+			copySuccess = true;
+			setTimeout(() => {
+				copySuccess = false;
+			}, 2000);
+		} catch (err) {
+			console.error('Failed to copy text: ', err);
+		}
+	}
 </script>
 
 <div class="flex flex-col h-full bg-background rounded-lg shadow-sm overflow-hidden">
@@ -140,14 +157,32 @@
 			{/if}
 		</div>
 		
-		<textarea
-			bind:this={textArea}
-			bind:value={note.content}
-			oninput={handleInput}
-			class="flex-1 p-4 resize-none border-none outline-none text-foreground bg-background"
-			style="font-family: {$currentFont}"
-			placeholder="Start typing to earn chars... Every character gives you 1 char!"
-		></textarea>
+		<div class="flex-1 relative">
+			<textarea
+				bind:this={textArea}
+				bind:value={note.content}
+				oninput={handleInput}
+				class="w-full h-full p-4 resize-none border-none outline-none text-foreground bg-background"
+				style="font-family: {$currentFont}"
+				placeholder="Start typing to earn chars... Every character gives you 1 char!"
+			></textarea>
+			
+			{#if note.content.length > 0 && copyFeatureUnlocked}
+				<Button
+					variant="ghost"
+					size="sm"
+					class="absolute top-3 right-3 h-8 w-8 p-0 bg-background/80 hover:bg-background border border-border/50 shadow-sm"
+					onclick={copyToClipboard}
+					title="Copy note content to clipboard"
+				>
+					{#if copySuccess}
+						<Check class="h-4 w-4 text-green-600" />
+					{:else}
+						<Copy class="h-4 w-4" />
+					{/if}
+				</Button>
+			{/if}
+		</div>
 		
 		<div class="flex justify-between items-center px-4 py-2 border-t bg-muted/50 text-xs text-muted-foreground">
 			<span>{note.content.length} characters</span>

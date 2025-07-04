@@ -193,4 +193,8 @@ export function getAvailableEmojis(upgradesArray: Upgrade[]): Array<{emoji: stri
 		});
 	
 	return emojis;
+}
+
+export function hasCopyFeature(upgradesArray: Upgrade[]): boolean {
+	return upgradesArray.some(upgrade => upgrade.id === 'utility-copy' && upgrade.purchased);
 } 

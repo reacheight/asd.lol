@@ -19,7 +19,8 @@
 		{ id: 'font', name: 'Fonts', icon: '/font-icon.png', label: 'Font' },
 		{ id: 'theme', name: 'Themes', icon: '/theme-icon.png', label: 'Theme' },
 		{ id: 'sound', name: 'Sounds', icon: '/sound-icon.png', label: 'Sound' },
-		{ id: 'emoji', name: 'Emojis', icon: 'text', label: '( ͡° ͜ʖ ͡°)' }
+		{ id: 'emoji', name: 'Emojis', icon: 'text', label: '( ͡° ͜ʖ ͡°)' },
+		{ id: 'utility', name: 'Utilities', icon: '/utils-icon.png', label: 'Pay to work' }
 	];
 
 	$: filteredUpgrades = $upgrades.filter(upgrade => 
@@ -72,6 +73,7 @@
 			case 'theme': return { type: 'image', value: '/theme-icon.png' };
 			case 'sound': return { type: 'image', value: '/sound-icon.png' };
 			case 'emoji': return { type: 'text', value: '( ͡° ͜ʖ ͡°)' };
+			case 'utility': return { type: 'image', value: '/utils-icon.png' };
 			default: return { type: 'text', value: 'Item' };
 		}
 	}

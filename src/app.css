@@ -278,3 +278,8 @@ body {
     transform: translateY(1px) rotate(-1deg);
   }
 }
+
+/* Font preview utility class */
+.font-preview {
+  font-family: var(--font-family, inherit);
+}

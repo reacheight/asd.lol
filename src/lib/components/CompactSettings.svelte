@@ -16,14 +16,24 @@
 	<!-- Font Setting -->
 	<Select.Root type="single" name="currentFont" bind:value={$currentFont}>
 		<Select.Trigger class="w-42">
-			{fontTriggerContent}
+			<span 
+				class="font-preview" 
+				style="--font-family: {$currentFont};"
+			>
+				{fontTriggerContent}
+			</span>
 		</Select.Trigger>
 		<Select.Content>
 			<Select.Group>
 				<Select.Label>Font Style</Select.Label>
 				{#each availableFonts as font (font.value)}
 					<Select.Item value={font.value} label={font.name}>
-						{font.name}
+						<span 
+							class="font-preview" 
+							style="--font-family: {font.value};"
+						>
+							{font.name}
+						</span>
 					</Select.Item>
 				{/each}
 			</Select.Group>

@@ -14,7 +14,7 @@ export const fontUpgrades: Upgrade[] = [
 		id: 'font-mono',
 		name: 'Monospace',
 		description: 'so you\'re like good with computers or something?',
-		cost: 100,
+		cost: 150,
 		type: 'font',
 		value: 'monospace',
 		purchased: false
@@ -23,7 +23,7 @@ export const fontUpgrades: Upgrade[] = [
 		id: 'font-system-ui',
 		name: 'System Font',
 		description: 'mac users can\'t survive without this',
-		cost: 90,
+		cost: 300,
 		type: 'font',
 		value: 'system-ui',
 		purchased: false
@@ -31,8 +31,8 @@ export const fontUpgrades: Upgrade[] = [
 	{
 		id: 'font-times',
 		name: 'Times New Roman',
-		description: 'Traditional newspaper and book font',
-		cost: 110,
+		description: 'my name\'s Roman btw',
+		cost: 600,
 		type: 'font',
 		value: '"Times New Roman", Times, serif',
 		purchased: false
@@ -40,8 +40,8 @@ export const fontUpgrades: Upgrade[] = [
 	{
 		id: 'font-courier',
 		name: 'Courier New',
-		description: 'Typewriter-style monospace font',
-		cost: 130,
+		description: 'for when you miss the 80s',
+		cost: 900,
 		type: 'font',
 		value: '"Courier New", Courier, monospace',
 		purchased: false
@@ -49,8 +49,8 @@ export const fontUpgrades: Upgrade[] = [
 	{
 		id: 'font-impact',
 		name: 'Impact',
-		description: 'Bold, attention-grabbing display font',
-		cost: 170,
+		description: 'SCREAM AT YOUR READERS',
+		cost: 1200,
 		type: 'font',
 		value: 'Impact, Arial Black, sans-serif',
 		purchased: false

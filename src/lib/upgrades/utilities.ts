@@ -5,7 +5,7 @@ export const utilityUpgrades: Upgrade[] = [
 		id: 'utility-copy',
 		name: 'Copy Button',
 		description: 'unlock the ability to copy your notes',
-		cost: 500,
+		cost: 800,
 		type: 'utility',
 		value: 'copy',
 		purchased: false
@@ -14,7 +14,7 @@ export const utilityUpgrades: Upgrade[] = [
 		id: 'utility-wordcount',
 		name: 'Word Counter',
 		description: 'see how many words you\'ve written',
-		cost: 75,
+		cost: 150,
 		type: 'utility',
 		value: 'wordcount',
 		purchased: false
@@ -32,7 +32,7 @@ export const utilityUpgrades: Upgrade[] = [
 		id: 'utility-paste',
 		name: 'Ctrl+V rights',
 		description: 'even your own clipboard judges you',
-		cost: 200,
+		cost: 400,
 		type: 'utility',
 		value: 'paste',
 		purchased: false
@@ -41,7 +41,7 @@ export const utilityUpgrades: Upgrade[] = [
 		id: 'utility-markdown',
 		name: 'Markdown Preview',
 		description: 'see your notes rendered as beautiful markdown',
-		cost: 300,
+		cost: 2000,
 		type: 'utility',
 		value: 'markdown',
 		purchased: false

@@ -5,7 +5,7 @@ export const emojiUpgrades: Upgrade[] = [
 		id: 'emoji-classic',
 		name: 'Classic',
 		description: ':) :(',
-		cost: 80,
+		cost: 100,
 		type: 'emoji',
 		value: 'classic',
 		purchased: false
@@ -14,7 +14,7 @@ export const emojiUpgrades: Upgrade[] = [
 		id: 'emoji-advanced',
 		name: 'Nobody actually uses these',
 		description: ':O',
-		cost: 120,
+		cost: 250,
 		type: 'emoji',
 		value: 'advanced',
 		purchased: false
@@ -23,7 +23,7 @@ export const emojiUpgrades: Upgrade[] = [
 		id: 'emoji-love',
 		name: 'Love & Hearts',
 		description: '<3 you xoxo',
-		cost: 100,
+		cost: 600,
 		type: 'emoji',
 		value: 'love',
 		purchased: false
@@ -32,7 +32,7 @@ export const emojiUpgrades: Upgrade[] = [
 		id: 'emoji-memes',
 		name: 'You\'ve seen these',
 		description: '¯\\_(ツ)_/¯',
-		cost: 200,
+		cost: 1200,
 		type: 'emoji',
 		value: 'memes',
 		purchased: false
@@ -41,7 +41,7 @@ export const emojiUpgrades: Upgrade[] = [
 		id: 'emoji-russian',
 		name: 'Russian Special',
 		description: '))',
-		cost: 200,
+		cost: 400,
 		type: 'emoji',
 		value: 'russian',
 		purchased: false

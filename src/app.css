@@ -176,6 +176,130 @@
   --coin-shadow: oklch(0.7 0.2 280 / 0.3);
 }
 
+[data-theme="ocean"] {
+  --background: oklch(0.97 0.02 220);
+  --foreground: oklch(0.15 0.08 220);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.15 0.08 220);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.15 0.08 220);
+  --primary: oklch(0.5 0.15 220);
+  --primary-foreground: oklch(0.97 0.02 220);
+  --secondary: oklch(0.94 0.03 220);
+  --secondary-foreground: oklch(0.15 0.08 220);
+  --muted: oklch(0.94 0.03 220);
+  --muted-foreground: oklch(0.45 0.08 220);
+  --accent: oklch(0.94 0.03 220);
+  --accent-foreground: oklch(0.15 0.08 220);
+  --destructive: oklch(0.577 0.245 27.325);
+  --border: oklch(0.88 0.05 220);
+  --input: oklch(0.88 0.05 220);
+  --ring: oklch(0.5 0.15 220);
+  --success: oklch(0.557 0.179 142.495);
+  --success-foreground: oklch(0.984 0.003 247.858);
+  --warning: oklch(0.808 0.171 70.975);
+  --warning-foreground: oklch(0.129 0.042 264.695);
+  
+  /* Sidebar colors for ocean theme */
+  --sidebar: oklch(0.95 0.03 220);
+  --sidebar-foreground: oklch(0.15 0.08 220);
+  --sidebar-primary: oklch(0.5 0.15 220);
+  --sidebar-primary-foreground: oklch(0.97 0.02 220);
+  --sidebar-accent: oklch(0.92 0.05 220);
+  --sidebar-accent-foreground: oklch(0.15 0.08 220);
+  --sidebar-border: oklch(0.88 0.05 220);
+  --sidebar-ring: oklch(0.5 0.15 220);
+  
+  /* Custom app colors for ocean theme */
+  --coin-bg: oklch(0.88 0.08 220);
+  --coin-border: oklch(0.6 0.15 220);
+  --coin-text: oklch(0.25 0.12 220);
+  --coin-shadow: oklch(0.6 0.15 220 / 0.3);
+}
+
+[data-theme="forest"] {
+  --background: oklch(0.98 0.02 140);
+  --foreground: oklch(0.18 0.06 140);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.18 0.06 140);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.18 0.06 140);
+  --primary: oklch(0.45 0.12 140);
+  --primary-foreground: oklch(0.98 0.02 140);
+  --secondary: oklch(0.95 0.03 140);
+  --secondary-foreground: oklch(0.18 0.06 140);
+  --muted: oklch(0.95 0.03 140);
+  --muted-foreground: oklch(0.5 0.06 140);
+  --accent: oklch(0.95 0.03 140);
+  --accent-foreground: oklch(0.18 0.06 140);
+  --destructive: oklch(0.577 0.245 27.325);
+  --border: oklch(0.9 0.04 140);
+  --input: oklch(0.9 0.04 140);
+  --ring: oklch(0.45 0.12 140);
+  --success: oklch(0.557 0.179 142.495);
+  --success-foreground: oklch(0.984 0.003 247.858);
+  --warning: oklch(0.808 0.171 70.975);
+  --warning-foreground: oklch(0.129 0.042 264.695);
+  
+  /* Sidebar colors for forest theme */
+  --sidebar: oklch(0.96 0.02 140);
+  --sidebar-foreground: oklch(0.18 0.06 140);
+  --sidebar-primary: oklch(0.45 0.12 140);
+  --sidebar-primary-foreground: oklch(0.98 0.02 140);
+  --sidebar-accent: oklch(0.93 0.04 140);
+  --sidebar-accent-foreground: oklch(0.18 0.06 140);
+  --sidebar-border: oklch(0.9 0.04 140);
+  --sidebar-ring: oklch(0.45 0.12 140);
+  
+  /* Custom app colors for forest theme */
+  --coin-bg: oklch(0.9 0.06 140);
+  --coin-border: oklch(0.55 0.12 140);
+  --coin-text: oklch(0.28 0.08 140);
+  --coin-shadow: oklch(0.55 0.12 140 / 0.3);
+}
+
+
+[data-theme="rose"] {
+  --background: oklch(0.99 0.02 350);
+  --foreground: oklch(0.2 0.06 350);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.2 0.06 350);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.2 0.06 350);
+  --primary: oklch(0.55 0.15 350);
+  --primary-foreground: oklch(0.99 0.02 350);
+  --secondary: oklch(0.96 0.03 350);
+  --secondary-foreground: oklch(0.2 0.06 350);
+  --muted: oklch(0.96 0.03 350);
+  --muted-foreground: oklch(0.5 0.06 350);
+  --accent: oklch(0.96 0.03 350);
+  --accent-foreground: oklch(0.2 0.06 350);
+  --destructive: oklch(0.577 0.245 27.325);
+  --border: oklch(0.92 0.04 350);
+  --input: oklch(0.92 0.04 350);
+  --ring: oklch(0.55 0.15 350);
+  --success: oklch(0.557 0.179 142.495);
+  --success-foreground: oklch(0.984 0.003 247.858);
+  --warning: oklch(0.808 0.171 70.975);
+  --warning-foreground: oklch(0.129 0.042 264.695);
+  
+  /* Sidebar colors for rose theme */
+  --sidebar: oklch(0.97 0.02 350);
+  --sidebar-foreground: oklch(0.2 0.06 350);
+  --sidebar-primary: oklch(0.55 0.15 350);
+  --sidebar-primary-foreground: oklch(0.99 0.02 350);
+  --sidebar-accent: oklch(0.94 0.04 350);
+  --sidebar-accent-foreground: oklch(0.2 0.06 350);
+  --sidebar-border: oklch(0.92 0.04 350);
+  --sidebar-ring: oklch(0.55 0.15 350);
+  
+  /* Custom app colors for rose theme */
+  --coin-bg: oklch(0.94 0.06 350);
+  --coin-border: oklch(0.65 0.15 350);
+  --coin-text: oklch(0.3 0.08 350);
+  --coin-shadow: oklch(0.65 0.15 350 / 0.3);
+}
+
 @theme {
   --font-sans: Inter, 'Segoe UI', Roboto, sans-serif;
   

@@ -3,7 +3,7 @@
 	import { notes, activeNoteId, currentTheme, type Note } from '$lib/stores.js';
 	import NotesList from '$lib/components/NotesList.svelte';
 	import TextEditor from '$lib/components/TextEditor.svelte';
-	import CoinDisplay from '$lib/components/CoinDisplay.svelte';
+	import Header from '$lib/components/Header.svelte';
 	import CompactSettings from '$lib/components/CompactSettings.svelte';
 	import CompactShop from '$lib/components/CompactShop.svelte';
 
@@ -34,16 +34,7 @@
 
 <div class="app-container">
 	<!-- Top Bar -->
-	<header class="top-bar">
-		<div class="app-title">
-			<h1>asd.lol</h1>
-			<p>your second stimulation-addicted brain</p>
-		</div>
-		
-		<div class="top-bar-actions">
-			<CoinDisplay />
-		</div>
-	</header>
+	<Header />
 
 	<!-- Main Content -->
 	<main class="main-content">
@@ -80,36 +71,7 @@
 		background: var(--background);
 	}
 
-	.top-bar {
-		display: flex;
-		justify-content: space-between;
-		align-items: center;
-		padding: 1rem 1.5rem;
-		background: var(--background);
-		border-bottom: 2px solid var(--border);
-		box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-		flex-shrink: 0;
-	}
 
-	.app-title h1 {
-		margin: 0;
-		font-size: 1.5rem;
-		color: var(--foreground);
-		font-weight: 700;
-	}
-
-	.app-title p {
-		margin: 0.25rem 0 0 0;
-		font-size: 0.9rem;
-		color: var(--muted-foreground);
-		font-weight: 500;
-	}
-
-	.top-bar-actions {
-		display: flex;
-		align-items: center;
-		gap: 1.5rem;
-	}
 
 	.main-content {
 		flex: 1;
@@ -171,33 +133,8 @@
 	}
 
 	@media (max-width: 768px) {
-		.top-bar {
-			flex-direction: column;
-			gap: 1rem;
-			padding: 1rem;
-		}
-
-		.app-title {
-			text-align: center;
-		}
-
-		.top-bar-actions {
-			width: 100%;
-			justify-content: center;
-		}
-
 		.notes-sidebar {
 			height: 150px;
-		}
-	}
-
-	@media (max-width: 480px) {
-		.app-title h1 {
-			font-size: 1.2rem;
-		}
-
-		.top-bar {
-			padding: 0.75rem;
 		}
 	}
 </style>

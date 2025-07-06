@@ -1,0 +1,5 @@
+---
+description: This project is written in Svelte 5, so always use Svelte 5 syntax. This project uses Tailwind and svelte-shadcn for UI components. This project is a fun text editor, every character user types is a "chars" currency. Chars are used to buy upgrades. Upgrades are some fun things like new fonts, themes, sound, and also some things for work like Ctrl+Z ability.
+globs:
+alwaysApply: true
+---

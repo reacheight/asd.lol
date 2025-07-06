@@ -13,6 +13,22 @@
 	let lastContentLength = 0;
 	let copySuccess = $state(false);
 	let showPreview = $state(false);
+	let currentPlaceholderIndex = $state(0);
+
+	// Dynamic placeholder variants with funny, engaging messages
+	const placeholderVariants = [
+		"In case nobody asked: how was your day?",
+		"Write about that thing you've been avoiding thinking about...",
+		"Today's existential crisis brought to you by: blank page anxiety",
+		"This is your safe space to overshare with yourself",
+		"Plot twist: you're the main character of your own story",
+		"Dear diary, today I discovered I need to buy fonts to feel alive...",
+		"Write something your future self will cringe at",
+		"Write like nobody's reading (because they're not)",
+		"What's on your mind? (Besides the crushing weight of existence)",
+		"You've come to the wrong place if you're looking for a real editor",
+		"A man can be destroyed but not defeated. So carry on",
+	];
 
 	let availableEmojis = $derived(getAvailableEmojis($upgrades));
 	let hasAnyEmojiPack = $derived(availableEmojis.length > 0);
@@ -21,6 +37,7 @@
 	let undoFeatureUnlocked = $derived(hasUndoFeature($upgrades));
 	let pasteFeatureUnlocked = $derived(hasPasteFeature($upgrades));
 	let markdownPreviewUnlocked = $derived(hasMarkdownPreviewFeature($upgrades));
+	let currentPlaceholder = $derived(placeholderVariants[currentPlaceholderIndex]);
 
 	// Configure marked options for better security and styling
 	marked.setOptions({
@@ -34,6 +51,15 @@
 		if (note) {
 			lastContentLength = note.content.length;
 		}
+		
+		// Rotate placeholder every 5 seconds
+		const placeholderInterval = setInterval(() => {
+			currentPlaceholderIndex = (currentPlaceholderIndex + 1) % placeholderVariants.length;
+		}, 10000);
+		
+		return () => {
+			clearInterval(placeholderInterval);
+		};
 	});
 
 	function handleInput(event: Event) {
@@ -218,7 +244,7 @@
 					onkeydown={handleKeyDown}
 					class="w-full h-full p-4 resize-none border-none outline-none text-foreground bg-background"
 					style="font-family: {$currentFont};"
-					placeholder="Start typing to earn chars... Every character gives you 1 char!"
+					placeholder={currentPlaceholder}
 				></textarea>
 			{:else}
 				<div 

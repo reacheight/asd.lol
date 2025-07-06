@@ -1,5 +1,6 @@
 @import "tailwindcss";
 @import "tw-animate-css";
+@import "./lib/styles/markdown-preview.css";
 
 @custom-variant dark (&:is(.dark *));
 
@@ -277,5 +278,5 @@ body {
 }
 
 .font-preview {
-  font-family: var(--font-family, inherit);
+  font-family: var(--preview-font, inherit);
 }

@@ -1,0 +1,151 @@
+/* Markdown Preview Styles */
+.markdown-preview {
+  line-height: 1.6;
+  color: var(--foreground);
+}
+
+.markdown-preview h1 {
+  font-size: 1.875rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  margin-top: 0;
+  line-height: 1.2;
+  color: var(--foreground);
+}
+
+.markdown-preview h2 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+  margin-top: 1.5rem;
+  line-height: 1.3;
+  color: var(--foreground);
+}
+
+.markdown-preview h3 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  margin-top: 1.25rem;
+  line-height: 1.4;
+  color: var(--foreground);
+}
+
+.markdown-preview h4,
+.markdown-preview h5,
+.markdown-preview h6 {
+  font-size: 1.125rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  margin-top: 1rem;
+  line-height: 1.4;
+  color: var(--foreground);
+}
+
+.markdown-preview p {
+  margin-bottom: 1rem;
+  margin-top: 0;
+  line-height: 1.6;
+  color: var(--foreground);
+}
+
+.markdown-preview ul,
+.markdown-preview ol {
+  margin-bottom: 1rem;
+  margin-top: 0;
+  padding-left: 1.5rem;
+  color: var(--foreground);
+}
+
+.markdown-preview ul {
+  list-style-type: disc;
+}
+
+.markdown-preview ol {
+  list-style-type: decimal;
+}
+
+.markdown-preview li {
+  margin-bottom: 0.25rem;
+  line-height: 1.6;
+  color: var(--foreground);
+}
+
+.markdown-preview li > p {
+  margin-bottom: 0.25rem;
+}
+
+.markdown-preview blockquote {
+  border-left: 4px solid var(--border);
+  padding-left: 1rem;
+  margin: 1rem 0;
+  font-style: italic;
+  color: var(--muted-foreground);
+}
+
+.markdown-preview code {
+  background-color: var(--muted);
+  padding: 0.125rem 0.25rem;
+  border-radius: 0.25rem;
+  font-family: monospace;
+  font-size: 0.875rem;
+  color: var(--foreground);
+}
+
+.markdown-preview pre {
+  background-color: var(--muted);
+  padding: 1rem;
+  border-radius: 0.5rem;
+  overflow-x: auto;
+  margin: 1rem 0;
+}
+
+.markdown-preview pre code {
+  background-color: transparent;
+  padding: 0;
+  border-radius: 0;
+}
+
+.markdown-preview a {
+  color: var(--primary);
+  text-decoration: underline;
+}
+
+.markdown-preview a:hover {
+  color: var(--primary);
+  text-decoration: none;
+}
+
+.markdown-preview strong {
+  font-weight: 700;
+  color: var(--foreground);
+}
+
+.markdown-preview em {
+  font-style: italic;
+  color: var(--foreground);
+}
+
+.markdown-preview hr {
+  border: none;
+  border-top: 1px solid var(--border);
+  margin: 2rem 0;
+}
+
+.markdown-preview table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1rem 0;
+}
+
+.markdown-preview th,
+.markdown-preview td {
+  border: 1px solid var(--border);
+  padding: 0.5rem;
+  text-align: left;
+}
+
+.markdown-preview th {
+  background-color: var(--muted);
+  font-weight: 600;
+} 

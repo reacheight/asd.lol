@@ -1,16 +1,18 @@
 <script lang="ts">
-	import { notes, chars, addChars, currentFont, currentSound, upgrades, getAvailableEmojis, hasCopyFeature, hasWordCountFeature, hasUndoFeature, hasPasteFeature, selectedShopCategory } from '../stores.js';
+	import { notes, chars, addChars, currentFont, currentSound, upgrades, getAvailableEmojis, hasCopyFeature, hasWordCountFeature, hasUndoFeature, hasPasteFeature, hasMarkdownPreviewFeature, selectedShopCategory } from '../stores.js';
 	import type { Note } from '../stores.js';
 	import { Separator } from '$lib/components/ui/separator';
 	import { Button } from '$lib/components/ui/button';
-	import { Copy, Check } from 'lucide-svelte';
+	import { Copy, Check, Eye, Edit } from 'lucide-svelte';
 	import { toast } from "svelte-sonner";
 	import { onMount } from 'svelte';
+	import { marked } from 'marked';
 
 	let { note = $bindable() }: { note?: Note | null } = $props();
 	let textArea = $state<HTMLTextAreaElement>();
 	let lastContentLength = 0;
 	let copySuccess = $state(false);
+	let showPreview = $state(false);
 
 	let availableEmojis = $derived(getAvailableEmojis($upgrades));
 	let hasAnyEmojiPack = $derived(availableEmojis.length > 0);
@@ -18,6 +20,15 @@
 	let wordCountFeatureUnlocked = $derived(hasWordCountFeature($upgrades));
 	let undoFeatureUnlocked = $derived(hasUndoFeature($upgrades));
 	let pasteFeatureUnlocked = $derived(hasPasteFeature($upgrades));
+	let markdownPreviewUnlocked = $derived(hasMarkdownPreviewFeature($upgrades));
+
+	// Configure marked options for better security and styling
+	marked.setOptions({
+		breaks: true,
+		gfm: true
+	});
+
+	let renderedMarkdown = $derived(note?.content ? marked(note.content) : '');
 
 	onMount(() => {
 		if (note) {
@@ -199,31 +210,62 @@
 		</div>
 		
 		<div class="flex-1 relative">
-			<textarea
-				bind:this={textArea}
-				bind:value={note.content}
-				oninput={handleInput}
-				onkeydown={handleKeyDown}
-				class="w-full h-full p-4 resize-none border-none outline-none text-foreground bg-background"
-				style="font-family: {$currentFont}"
-				placeholder="Start typing to earn chars... Every character gives you 1 char!"
-			></textarea>
-			
-			{#if note.content.length > 0 && copyFeatureUnlocked}
-				<Button
-					variant="ghost"
-					size="sm"
-					class="absolute top-3 right-3 h-8 w-8 p-0 bg-background/80 hover:bg-background border border-border/50 shadow-sm"
-					onclick={copyToClipboard}
-					title="Copy note content to clipboard"
+			{#if !showPreview}
+				<textarea
+					bind:this={textArea}
+					bind:value={note.content}
+					oninput={handleInput}
+					onkeydown={handleKeyDown}
+					class="w-full h-full p-4 resize-none border-none outline-none text-foreground bg-background"
+					style="font-family: {$currentFont};"
+					placeholder="Start typing to earn chars... Every character gives you 1 char!"
+				></textarea>
+			{:else}
+				<div 
+					class="w-full h-full p-4 overflow-y-auto markdown-preview"
 				>
-					{#if copySuccess}
-						<Check class="h-4 w-4 text-green-600" />
+					{#if note.content.trim()}
+						{@html renderedMarkdown}
 					{:else}
-						<Copy class="h-4 w-4" />
+						<p class="text-muted-foreground italic">Nothing to preview</p>
 					{/if}
-				</Button>
+				</div>
 			{/if}
+			
+			<!-- Top-right action buttons -->
+			<div class="absolute top-3 right-3 flex gap-2">
+				{#if markdownPreviewUnlocked}
+					<Button
+						variant="ghost"
+						size="sm"
+						class="h-8 w-8 p-0 bg-background/80 hover:bg-background border border-border/50 shadow-sm"
+						onclick={() => showPreview = !showPreview}
+						title={showPreview ? "Switch to edit mode" : "Preview markdown"}
+					>
+						{#if showPreview}
+							<Edit class="h-4 w-4" />
+						{:else}
+							<Eye class="h-4 w-4" />
+						{/if}
+					</Button>
+				{/if}
+				
+				{#if note.content.length > 0 && copyFeatureUnlocked}
+					<Button
+						variant="ghost"
+						size="sm"
+						class="h-8 w-8 p-0 bg-background/80 hover:bg-background border border-border/50 shadow-sm"
+						onclick={copyToClipboard}
+						title="Copy note content to clipboard"
+					>
+						{#if copySuccess}
+							<Check class="h-4 w-4 text-green-600" />
+						{:else}
+							<Copy class="h-4 w-4" />
+						{/if}
+					</Button>
+				{/if}
+			</div>
 		</div>
 		
 		<div class="flex justify-between items-center px-4 py-2 border-t bg-muted/50 text-xs text-muted-foreground">

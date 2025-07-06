@@ -210,4 +210,8 @@ export function hasUndoFeature(upgradesArray: Upgrade[]): boolean {
 
 export function hasPasteFeature(upgradesArray: Upgrade[]): boolean {
 	return upgradesArray.some(upgrade => upgrade.id === 'utility-paste' && upgrade.purchased);
+}
+
+export function hasMarkdownPreviewFeature(upgradesArray: Upgrade[]): boolean {
+	return upgradesArray.some(upgrade => upgrade.id === 'utility-markdown' && upgrade.purchased);
 } 

@@ -36,5 +36,14 @@ export const utilityUpgrades: Upgrade[] = [
 		type: 'utility',
 		value: 'paste',
 		purchased: false
+	},
+	{
+		id: 'utility-markdown',
+		name: 'Markdown Preview',
+		description: 'see your notes rendered as beautiful markdown',
+		cost: 300,
+		type: 'utility',
+		value: 'markdown',
+		purchased: false
 	}
 ]; 

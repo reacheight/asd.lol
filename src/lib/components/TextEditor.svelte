@@ -297,7 +297,7 @@
 				></textarea>
 			{:else}
 				<div 
-					class="w-full h-full p-4 overflow-y-auto markdown-preview"
+					class="absolute inset-0 p-4 overflow-y-auto markdown-preview"
 				>
 					{#if note.content.trim()}
 						{@html renderedMarkdown}

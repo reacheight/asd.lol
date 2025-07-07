@@ -219,8 +219,8 @@
 			return;
 		}
 		
-		// Block Ctrl+Z (undo) if undo feature is not unlocked
-		if (!undoFeatureUnlocked && event.ctrlKey && event.key === 'z') {
+		// Block Ctrl+Z (undo) if undo feature is not unlocked - use event.code for cross-layout compatibility
+		if (!undoFeatureUnlocked && event.ctrlKey && event.code === 'KeyZ') {
 			event.preventDefault();
 			
 			toast.error(`Undo blocked`, {

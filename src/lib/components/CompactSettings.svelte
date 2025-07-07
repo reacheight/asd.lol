@@ -63,12 +63,18 @@
 			"w-42",
 			newlyAvailableSelectors.has('font') && "newly-available-selector"
 		)}>
-			<span 
-				class="font-preview" 
-				style="--font-family: {$currentFont};"
-			>
-				{fontTriggerContent}
-			</span>
+			<div class="flex items-center gap-2">
+				<div class="flex items-center justify-center w-4 h-4">
+					<img src="/font-icon.png" alt="Font" class="w-4 h-4 object-contain" />
+				</div>
+				<span 
+					class="font-preview" 
+					style="--font-family: {$currentFont};"
+				>
+					{fontTriggerContent}
+				</span>
+			</div>
+
 		</Select.Trigger>
 		<Select.Content>
 			<Select.Group>

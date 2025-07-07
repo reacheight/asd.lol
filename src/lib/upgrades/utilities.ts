@@ -5,7 +5,7 @@ export const utilityUpgrades: Upgrade[] = [
 		id: 'utility-copy',
 		name: 'Copy Button',
 		description: 'unlock the ability to copy your notes',
-		cost: 800,
+		cost: 200,
 		type: 'utility',
 		value: 'copy',
 		purchased: false
@@ -35,6 +35,15 @@ export const utilityUpgrades: Upgrade[] = [
 		cost: 400,
 		type: 'utility',
 		value: 'paste',
+		purchased: false
+	},
+	{
+		id: 'utility-tab',
+		name: 'Tab Indentation',
+		description: 'press Tab to insert 4 spaces like a civilized person',
+		cost: 300,
+		type: 'utility',
+		value: 'tab',
 		purchased: false
 	},
 	{

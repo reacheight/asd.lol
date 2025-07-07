@@ -214,4 +214,8 @@ export function hasPasteFeature(upgradesArray: Upgrade[]): boolean {
 
 export function hasMarkdownPreviewFeature(upgradesArray: Upgrade[]): boolean {
 	return upgradesArray.some(upgrade => upgrade.id === 'utility-markdown' && upgrade.purchased);
+}
+
+export function hasTabFeature(upgradesArray: Upgrade[]): boolean {
+	return upgradesArray.some(upgrade => upgrade.id === 'utility-tab' && upgrade.purchased);
 } 

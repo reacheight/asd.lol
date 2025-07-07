@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { notes, chars, addChars, currentFont, currentSound, upgrades, getAvailableEmojis, hasCopyFeature, hasWordCountFeature, hasUndoFeature, hasPasteFeature, hasMarkdownPreviewFeature, selectedShopCategory } from '../stores.js';
+	import { notes, chars, addChars, currentFont, currentSound, upgrades, getAvailableEmojis, hasCopyFeature, hasWordCountFeature, hasUndoFeature, hasPasteFeature, hasMarkdownPreviewFeature, hasTabFeature, selectedShopCategory } from '../stores.js';
 	import type { Note } from '../stores.js';
 	import { Separator } from '$lib/components/ui/separator';
 	import { Button } from '$lib/components/ui/button';
@@ -23,7 +23,7 @@
 		"This is your safe space to overshare with yourself",
 		"Plot twist: you're the main character of your own story",
 		"Dear diary, today I discovered I need to buy fonts to feel alive...",
-		"Write something your future self will cringe at",
+		"Write something your future self will cringe at",	
 		"Write like nobody's reading (because they're not)",
 		"What's on your mind? (Besides the crushing weight of existence)",
 		"You've come to the wrong place if you're looking for a real editor",
@@ -36,6 +36,7 @@
 	let wordCountFeatureUnlocked = $derived(hasWordCountFeature($upgrades));
 	let undoFeatureUnlocked = $derived(hasUndoFeature($upgrades));
 	let pasteFeatureUnlocked = $derived(hasPasteFeature($upgrades));
+	let tabFeatureUnlocked = $derived(hasTabFeature($upgrades));
 	let markdownPreviewUnlocked = $derived(hasMarkdownPreviewFeature($upgrades));
 	let currentPlaceholder = $derived(placeholderVariants[currentPlaceholderIndex]);
 
@@ -150,6 +151,35 @@
 		});
 	}
 
+	function insertTab() {
+		if (!note || !textArea) return;
+		
+		const start = textArea.selectionStart;
+		const end = textArea.selectionEnd;
+		const tabSpaces = '    '; // 4 spaces
+		const newContent = note.content.substring(0, start) + tabSpaces + note.content.substring(end);
+		
+		note.content = newContent;
+		note.updatedAt = new Date();
+		
+		addChars(tabSpaces.length);
+		
+		setTimeout(() => {
+			if (textArea) {
+				textArea.selectionStart = textArea.selectionEnd = start + tabSpaces.length;
+				textArea.focus();
+			}
+		}, 0);
+		
+		notes.update(allNotes => {
+			const index = allNotes.findIndex(n => n.id === note.id);
+			if (index !== -1) {
+				allNotes[index] = { ...note };
+			}
+			return allNotes;
+		});
+	}
+
 	async function copyToClipboard() {
 		if (!note) return;
 		
@@ -170,6 +200,25 @@
 	}
 
 	function handleKeyDown(event: KeyboardEvent) {
+		if (event.key === 'Tab') {
+			event.preventDefault();
+			
+			if (tabFeatureUnlocked) {
+				insertTab();
+			} else {
+				toast.error(`Tab blocked`, {
+					description: "Purchase Tab Indentation to insert 4 spaces like a civilized person",
+					action: {
+						label: "Buy upgrade",
+						onClick: () => {
+							selectedShopCategory.set('utility');
+						}
+					}
+				});
+			}
+			return;
+		}
+		
 		// Block Ctrl+Z (undo) if undo feature is not unlocked
 		if (!undoFeatureUnlocked && event.ctrlKey && event.key === 'z') {
 			event.preventDefault();

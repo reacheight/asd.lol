@@ -14,6 +14,10 @@
 	let copySuccess = $state(false);
 	let showPreview = $state(false);
 	let currentPlaceholderIndex = $state(0);
+	
+	let audioPool: HTMLAudioElement[] = [];
+	let currentAudioIndex = 0;
+	const AUDIO_POOL_SIZE = 5;
 
 	// Dynamic placeholder variants with funny, engaging messages
 	const placeholderVariants = [
@@ -53,6 +57,13 @@
 			lastContentLength = note.content.length;
 		}
 		
+		for (let i = 0; i < AUDIO_POOL_SIZE; i++) {
+			const audio = new Audio('/typewriter.mp3');
+			audio.volume = 0.3;
+			audio.preload = 'auto';
+			audioPool.push(audio);
+		}
+		
 		// Rotate placeholder every 5 seconds
 		const placeholderInterval = setInterval(() => {
 			currentPlaceholderIndex = (currentPlaceholderIndex + 1) % placeholderVariants.length;
@@ -85,7 +96,7 @@
 		notes.update(allNotes => {
 			const index = allNotes.findIndex(n => n.id === note.id);
 			if (index !== -1) {
-				allNotes[index] = { ...note };
+				allNotes[index] = note;
 			}
 			return allNotes;
 		});
@@ -101,27 +112,21 @@
 		notes.update(allNotes => {
 			const index = allNotes.findIndex(n => n.id === note.id);
 			if (index !== -1) {
-				allNotes[index] = { ...note };
+				allNotes[index] = note;
 			}
 			return allNotes;
 		});
 	}
 
 	function playTypingSound() {
-		if ($currentSound === 'typewriter') {
-			const audioContext = new (window.AudioContext || (window as any).webkitAudioContext)();
-			const oscillator = audioContext.createOscillator();
-			const gainNode = audioContext.createGain();
+		if ($currentSound === 'typewriter' && audioPool.length > 0) {
+			const audio = audioPool[currentAudioIndex];
+			currentAudioIndex = (currentAudioIndex + 1) % AUDIO_POOL_SIZE;
 			
-			oscillator.connect(gainNode);
-			gainNode.connect(audioContext.destination);
-			
-			oscillator.frequency.setValueAtTime(800, audioContext.currentTime);
-			gainNode.gain.setValueAtTime(0.1, audioContext.currentTime);
-			gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.1);
-			
-			oscillator.start(audioContext.currentTime);
-			oscillator.stop(audioContext.currentTime + 0.1);
+			audio.currentTime = 0;
+			audio.play().catch((err: unknown) => {
+				console.warn('Failed to play typing sound:', err);
+			});
 		}
 	}
 
@@ -145,7 +150,7 @@
 		notes.update(allNotes => {
 			const index = allNotes.findIndex(n => n.id === note.id);
 			if (index !== -1) {
-				allNotes[index] = { ...note };
+				allNotes[index] = note;
 			}
 			return allNotes;
 		});
@@ -174,7 +179,7 @@
 		notes.update(allNotes => {
 			const index = allNotes.findIndex(n => n.id === note.id);
 			if (index !== -1) {
-				allNotes[index] = { ...note };
+				allNotes[index] = note;
 			}
 			return allNotes;
 		});

@@ -14,7 +14,7 @@ export const utilityUpgrades: Upgrade[] = [
 		id: 'utility-wordcount',
 		name: 'Word Counter',
 		description: 'see how many words you\'ve written',
-		cost: 150,
+		cost: 400,
 		type: 'utility',
 		value: 'wordcount',
 		purchased: false

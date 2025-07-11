@@ -363,7 +363,7 @@
 		</div>
 	{:else}
 		<div class="flex items-center justify-center h-full">
-			<p class="text-muted-foreground text-lg">Select a note to start writing and earning chars!</p>
+			<p class="text-muted-foreground text-lg">Select a note, what are you waiting for?</p>
 		</div>
 	{/if}
 </div> 

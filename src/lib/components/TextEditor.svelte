@@ -1,7 +1,6 @@
 <script lang="ts">
 	import { notes, chars, addChars, currentFont, currentSound, upgrades, getAvailableEmojis, hasCopyFeature, hasWordCountFeature, hasUndoFeature, hasPasteFeature, hasMarkdownPreviewFeature, hasTabFeature, selectedShopCategory } from '../stores.js';
 	import type { Note } from '../stores.js';
-	import { Separator } from '$lib/components/ui/separator';
 	import { Button } from '$lib/components/ui/button';
 	import { Copy, Check, Eye, Edit } from 'lucide-svelte';
 	import { toast } from "svelte-sonner";
@@ -17,7 +16,17 @@
 	
 	let audioPool: HTMLAudioElement[] = [];
 	let currentAudioIndex = 0;
+	let currentSoundType = '';
 	const AUDIO_POOL_SIZE = 5;
+	
+	const soundFiles: Record<string, string> = {
+		typewriter: '/typewriter.mp3',
+		bubble: '/bubble.mp3',
+		cat: '/cat.mp3'
+	};
+	
+	const isSilentSound = (sound: string) => sound === 'silence' || sound === 'none';
+	const needsAudioPool = (sound: string) => !isSilentSound(sound) && soundFiles[sound];
 
 	// Dynamic placeholder variants with funny, engaging messages
 	const placeholderVariants = [
@@ -57,14 +66,8 @@
 			lastContentLength = note.content.length;
 		}
 		
-		for (let i = 0; i < AUDIO_POOL_SIZE; i++) {
-			const audio = new Audio('/typewriter.mp3');
-			audio.volume = 0.3;
-			audio.preload = 'auto';
-			audioPool.push(audio);
-		}
+		initializeAudioPool('typewriter');
 		
-		// Rotate placeholder every 5 seconds
 		const placeholderInterval = setInterval(() => {
 			currentPlaceholderIndex = (currentPlaceholderIndex + 1) % placeholderVariants.length;
 		}, 10000);
@@ -72,6 +75,40 @@
 		return () => {
 			clearInterval(placeholderInterval);
 		};
+	});
+	
+	function initializeAudioPool(soundType: string) {
+		audioPool.forEach(audio => {
+			audio.src = '';
+			audio.load();
+		});
+		audioPool = [];
+		currentAudioIndex = 0;
+		
+		currentSoundType = soundType;
+		
+		const soundFile = soundFiles[soundType];
+		if (!soundFile) return;
+		
+		for (let i = 0; i < AUDIO_POOL_SIZE; i++) {
+			const audio = new Audio(soundFile);
+			audio.volume = 0.3;
+			audio.preload = 'auto';
+			audioPool.push(audio);
+		}
+	}
+	
+	$effect(() => {
+		if ($currentSound && needsAudioPool($currentSound) && $currentSound !== currentSoundType) {
+			initializeAudioPool($currentSound);
+		} else if (isSilentSound($currentSound) && audioPool.length > 0) {
+			audioPool.forEach(audio => {
+				audio.src = '';
+				audio.load();
+			});
+			audioPool = [];
+			currentSoundType = '';
+		}
 	});
 
 	function handleInput(event: Event) {
@@ -85,7 +122,9 @@
 			const newChars = newLength - lastContentLength;
 			addChars(newChars);
 			
-			playTypingSound();
+			if ($currentSound !== 'cat') {
+				playTypingSound();
+			}
 		}
 		
 		lastContentLength = newLength;
@@ -119,11 +158,18 @@
 	}
 
 	function playTypingSound() {
-		if ($currentSound === 'typewriter' && audioPool.length > 0) {
+		if (isSilentSound($currentSound)) {
+			return;
+		}
+		
+		if (audioPool.length > 0) {
 			const audio = audioPool[currentAudioIndex];
 			currentAudioIndex = (currentAudioIndex + 1) % AUDIO_POOL_SIZE;
 			
-			audio.currentTime = 0;
+			if (!audio.paused) {
+				audio.currentTime = 0;
+			}
+			
 			audio.play().catch((err: unknown) => {
 				console.warn('Failed to play typing sound:', err);
 			});
@@ -205,6 +251,10 @@
 	}
 
 	function handleKeyDown(event: KeyboardEvent) {
+		if (event.key === ' ' && $currentSound === 'cat') {
+			playTypingSound();
+		}
+		
 		if (event.key === 'Tab') {
 			event.preventDefault();
 			

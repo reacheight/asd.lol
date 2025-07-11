@@ -56,7 +56,7 @@
 	}
 </script>
 
-<div class="flex items-center gap-6 p-4 bg-gradient-to-r from-background/95 to-muted/50 backdrop-blur-sm border-b">
+<div class="flex items-center gap-6 p-4 bg-background/95 backdrop-blur-sm border-b">
 	<!-- Font Setting -->
 	<Select.Root type="single" name="currentFont" bind:value={$currentFont}>
 		<Select.Trigger class={cn(

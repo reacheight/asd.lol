@@ -60,7 +60,7 @@
 	<!-- Font Setting -->
 	<Select.Root type="single" name="currentFont" bind:value={$currentFont}>
 		<Select.Trigger class={cn(
-			"w-42",
+			"w-50",
 			newlyAvailableSelectors.has('font') && "newly-available-selector"
 		)}>
 			<div class="flex items-center gap-2">
@@ -95,7 +95,7 @@
 
 	<Select.Root type="single" name="currentTheme" bind:value={$currentTheme}>
 		<Select.Trigger class={cn(
-			"w-42",
+			"w-50",
 			newlyAvailableSelectors.has('theme') && "newly-available-selector"
 		)}>
 			<div class="flex items-center gap-2">
@@ -119,7 +119,7 @@
 
 	<Select.Root type="single" name="currentSound" bind:value={$currentSound}>
 		<Select.Trigger class={cn(
-			"w-46",
+			"w-54",
 			newlyAvailableSelectors.has('sound') && "newly-available-selector"
 		)}>
 			<div class="flex items-center gap-2">

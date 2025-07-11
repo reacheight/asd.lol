@@ -3,7 +3,7 @@
 	import { Button } from '$lib/components/ui/button';
 </script>
 
-<header class="flex flex-col md:flex-row justify-between items-center p-3 md:p-4 md:px-6 bg-background border-b-2 border-border shadow-lg flex-shrink-0 gap-4 md:gap-0">
+<header class="flex flex-col md:flex-row justify-between items-center p-3 md:p-4 md:px-6 bg-background border-b-2 border-border flex-shrink-0 gap-4 md:gap-0">
   <div class="text-center md:text-left">
     <div class="flex items-center justify-center gap-2 md:justify-start mb-2">
       <h1 class="m-0 text-xl md:text-2xl text-foreground font-bold">asd.lol</h1>

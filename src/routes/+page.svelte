@@ -84,9 +84,7 @@
 	}
 
 	.notes-sidebar {
-		width: 300px;
 		flex-shrink: 0;
-		border-right: 2px solid var(--border);
 	}
 
 	.editor-section {

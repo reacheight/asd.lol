@@ -2,7 +2,7 @@
 	import { notes, chars, addChars, currentFont, currentSound, upgrades, getAvailableEmojis, hasCopyFeature, hasWordCountFeature, hasUndoFeature, hasPasteFeature, hasMarkdownPreviewFeature, hasTabFeature, selectedShopCategory } from '../stores.js';
 	import type { Note } from '../stores.js';
 	import { Button } from '$lib/components/ui/button';
-	import { Copy, Check, Eye, Edit } from 'lucide-svelte';
+	import { Copy, Check, Eye, Edit, ChevronDown, ChevronUp } from 'lucide-svelte';
 	import { toast } from "svelte-sonner";
 	import { onMount } from 'svelte';
 	import { marked } from 'marked';
@@ -13,6 +13,7 @@
 	let copySuccess = $state(false);
 	let showPreview = $state(false);
 	let currentPlaceholderIndex = $state(0);
+	let emojiBarExpanded = $state(false);
 	
 	let audioPool: HTMLAudioElement[] = [];
 	let currentAudioIndex = 0;
@@ -320,17 +321,37 @@
 		
 		<div class="px-4 py-3 border-b bg-background">
 			{#if hasAnyEmojiPack}
-				<div class="flex flex-wrap gap-1">
-					{#each availableEmojis as emojiData}
-						<Button
-							variant="ghost"
-							size="sm"
-							class="h-8 px-2 py-1 font-mono text-sm hover:bg-muted whitespace-nowrap"
-							onclick={() => insertEmoji(emojiData.emoji)}
-						>
-							{emojiData.emoji}
-						</Button>
-					{/each}
+				<div class="space-y-2">
+					<div class="flex items-center justify-between">
+						<div class="flex-1">
+							<div class="flex flex-wrap gap-1 {emojiBarExpanded ? '' : 'overflow-hidden'}" style="{emojiBarExpanded ? '' : 'max-height: 2.5rem;'}">
+								{#each availableEmojis as emojiData}
+									<Button
+										variant="ghost"
+										size="sm"
+										class="h-8 px-2 py-1 font-mono text-sm hover:bg-muted whitespace-nowrap"
+										onclick={() => insertEmoji(emojiData.emoji)}
+									>
+										{emojiData.emoji}
+									</Button>
+								{/each}
+							</div>
+						</div>
+						{#if availableEmojis.length > 8}
+							<Button
+								size="sm"
+								class="h-8 w-8 p-0 ml-2 flex-shrink-0"
+								onclick={() => emojiBarExpanded = !emojiBarExpanded}
+								title={emojiBarExpanded ? "Collapse emoji bar" : "Expand emoji bar"}
+							>
+								{#if emojiBarExpanded}
+									<ChevronUp class="h-4 w-4" />
+								{:else}
+									<ChevronDown class="h-4 w-4" />
+								{/if}
+							</Button>
+						{/if}
+					</div>
 				</div>
 			{:else}
 				<p class="text-sm text-muted-foreground text-center py-2">

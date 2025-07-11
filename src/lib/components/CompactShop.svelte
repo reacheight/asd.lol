@@ -135,7 +135,7 @@
 							)}>
 								<CardContent class="p-3">
 									<div class="flex items-start gap-3">
-										<div class="flex items-center justify-center w-8 h-8 bg-muted rounded-lg shrink-0">
+										<div class="flex items-center justify-center w-10 h-10 bg-muted rounded-lg shrink-0">
 											{#if getUpgradeIcon(upgrade.type).type === 'image'}
 												<img 
 													src={getUpgradeIcon(upgrade.type).value} 
@@ -192,7 +192,7 @@
 							<Card class="p-0 bg-green-50/50 border-green-200">
 								<CardContent class="p-3">
 									<div class="flex items-center gap-3">
-										<div class="flex items-center justify-center w-8 h-8 bg-green-100 rounded-lg shrink-0">
+										<div class="flex items-center justify-center w-10 h-10 bg-green-100 rounded-lg shrink-0">
 											{#if getUpgradeIcon(upgrade.type).type === 'image'}
 												<img 
 													src={getUpgradeIcon(upgrade.type).value} 

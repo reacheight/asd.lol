@@ -4,6 +4,12 @@
 
 @custom-variant dark (&:is(.dark *));
 
+* {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
 :root {
   --radius: 0.625rem;
   

@@ -41,7 +41,7 @@
 		<div class="unified-layout flex flex-col lg:flex-row">
 			<!-- Left: Notes List -->
 			<aside 
-				class="notes-sidebar order-1 w-full lg:w-auto lg:h-full lg:border-r-2 lg:border-b-0 border-b-2 border-border flex-shrink-0"
+				class="notes-sidebar order-1 w-full lg:w-auto lg:h-full lg:border-b-0 border-b-2 border-border flex-shrink-0"
 				class:collapsed={$notesCollapsed}
 			>
 				<NotesList />
@@ -60,7 +60,7 @@
 			
 			<!-- Right: Shop -->
 			<aside 
-				class="shop-sidebar order-3 w-full lg:w-auto lg:h-full lg:border-l-2 lg:border-t-0 border-t-2 border-border flex-shrink-0"
+				class="shop-sidebar order-3 w-full lg:w-auto lg:h-full lg:border-t-0 border-t-2 border-border flex-shrink-0"
 				class:collapsed={$shopCollapsed}
 			>
 				<CompactShop />
@@ -83,32 +83,9 @@
 	}
 
 	.unified-layout {
-		/* display: flex; replaced by tailwind classes */
 		height: 100%;
 	}
 
-	/* .notes-sidebar {
-		flex-shrink: 0;
-	}
-
-	.editor-section {
-		flex: 1;
-		display: flex;
-		flex-direction: column;
-		overflow: hidden;
-	}
-
-	.editor-container {
-		flex: 1;
-		overflow: hidden;
-	} */
-
-	/* .shop-sidebar {
-		flex-shrink: 0;
-		border-left: 2px solid var(--border);
-	} */
-
-	/* Responsive Design for Mobile and Tablet Screens */
 	/* All media queries are now replaced by Tailwind classes */
 
 	@media (max-width: 1024px) {
@@ -127,22 +104,16 @@
 		.shop-sidebar:not(.collapsed) {
 			height: 230px;
 		}
-	}
 
-	/* Very small mobile screens */
-	@media (max-width: 480px) {
-		.notes-sidebar:not(.collapsed) {
-			height: 160px;
+		/* Very small mobile screens */
+		@media (max-width: 480px) {
+			.notes-sidebar:not(.collapsed) {
+				height: 160px;
+			}
+
+			.shop-sidebar:not(.collapsed) {
+				height: 260px;
+			}
 		}
-
-		.shop-sidebar:not(.collapsed) {
-			height: 260px;
-		}
-	}
-
-	/* Keeping important collapsed styles until child components are refactored */
-	.notes-sidebar.collapsed,
-	.shop-sidebar.collapsed {
-		height: 50px !important;
 	}
 </style>

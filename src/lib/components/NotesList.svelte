@@ -39,8 +39,7 @@
 </script>
 
 <div class={cn(
-	"flex flex-col h-full bg-muted/30 transition-all duration-300 ease-in-out",
-	"lg:border-r",
+	"flex flex-col h-full bg-muted/30 transition-all duration-300 ease-in-out lg:border-r-2 border-border",
 	isCollapsed ? "w-full lg:w-16" : "w-full lg:w-80"
 )}>
 	<div class={cn(

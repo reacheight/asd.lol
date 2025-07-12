@@ -56,11 +56,11 @@
 	}
 </script>
 
-<div class="flex items-center gap-6 p-4 bg-background/95 backdrop-blur-sm border-b">
+<div class="flex flex-wrap items-center gap-2 sm:gap-4 px-2 py-2 sm:px-4 bg-background/95 backdrop-blur-sm border-b">
 	<!-- Font Setting -->
 	<Select.Root type="single" name="currentFont" bind:value={$currentFont}>
 		<Select.Trigger class={cn(
-			"w-50",
+			"w-full sm:w-50 flex-1 sm:flex-none",
 			newlyAvailableSelectors.has('font') && "newly-available-selector"
 		)}>
 			<div class="flex items-center gap-2">
@@ -68,7 +68,7 @@
 					<img src="/font-icon.png" alt="Font" class="w-4 h-4 object-contain" />
 				</div>
 				<span 
-					class="font-preview" 
+					class="font-preview truncate" 
 					style="--font-family: {$currentFont};"
 				>
 					{fontTriggerContent}
@@ -95,14 +95,14 @@
 
 	<Select.Root type="single" name="currentTheme" bind:value={$currentTheme}>
 		<Select.Trigger class={cn(
-			"w-50",
+			"w-full sm:w-50 flex-1 sm:flex-none",
 			newlyAvailableSelectors.has('theme') && "newly-available-selector"
 		)}>
 			<div class="flex items-center gap-2">
 				<div class="flex items-center justify-center w-4 h-4">
 					<img src="/theme-icon.png" alt="Theme" class="w-4 h-4 object-contain" />
 				</div>
-				{themeTriggerContent}
+				<span class="truncate">{themeTriggerContent}</span>
 			</div>
 		</Select.Trigger>
 		<Select.Content>
@@ -119,14 +119,14 @@
 
 	<Select.Root type="single" name="currentSound" bind:value={$currentSound}>
 		<Select.Trigger class={cn(
-			"w-54",
+			"w-full sm:w-54 flex-1 sm:flex-none",
 			newlyAvailableSelectors.has('sound') && "newly-available-selector"
 		)}>
 			<div class="flex items-center gap-2">
 				<div class="flex items-center justify-center w-4 h-4">
 					<img src="/sound-icon.png" alt="Sound" class="w-4 h-4 object-contain" />
 				</div>
-				{soundTriggerContent}
+				<span class="truncate">{soundTriggerContent}</span>
 			</div>
 		</Select.Trigger>
 		<Select.Content>

@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { notes, chars, addChars, currentFont, currentSound, upgrades, getAvailableEmojis, hasCopyFeature, hasWordCountFeature, hasUndoFeature, hasPasteFeature, hasMarkdownPreviewFeature, hasTabFeature, selectedShopCategory } from '../stores.js';
+	import { notes, addChars, currentFont, currentSound, upgrades, getAvailableEmojis, hasCopyFeature, hasWordCountFeature, hasUndoFeature, hasPasteFeature, hasMarkdownPreviewFeature, hasTabFeature, selectedShopCategory } from '../stores.js';
 	import type { Note } from '../stores.js';
 	import { Button } from '$lib/components/ui/button';
 	import { Copy, Check, Eye, Edit, ChevronDown, ChevronUp } from 'lucide-svelte';
@@ -307,8 +307,8 @@
 	}
 </script>
 
-<div class="flex flex-col h-full bg-background rounded-lg shadow-sm overflow-hidden">
-	{#if note}
+{#if note}
+	<div class="flex flex-col h-full bg-background rounded-lg shadow-sm overflow-hidden editor-wrapper">
 		<div class="p-4 border-b bg-muted/50">
 			<input
 				type="text"
@@ -386,7 +386,7 @@
 			<!-- Top-right action buttons -->
 			<div class="absolute top-3 right-3 flex gap-2">
 				{#if markdownPreviewUnlocked}
-					<Button
+					<Button 
 						variant="ghost"
 						size="sm"
 						class="h-8 w-8 p-0 bg-background/80 hover:bg-background border border-border/50 shadow-sm"
@@ -402,7 +402,7 @@
 				{/if}
 				
 				{#if note.content.length > 0 && copyFeatureUnlocked}
-					<Button
+					<Button 
 						variant="ghost"
 						size="sm"
 						class="h-8 w-8 p-0 bg-background/80 hover:bg-background border border-border/50 shadow-sm"
@@ -437,9 +437,35 @@
 				})}
 			</span>
 		</div>
-	{:else}
-		<div class="flex items-center justify-center h-full">
-			<p class="text-muted-foreground text-lg">Select a note, what are you waiting for?</p>
-		</div>
-	{/if}
-</div> 
+	</div>
+{:else}
+	<div class="flex items-center justify-center h-full">
+		<p class="text-muted-foreground text-lg">Select a note, what are you waiting for?</p>
+	</div>
+{/if}
+
+<style>
+	textarea {
+		font-size: 16px; /* Responsive font size */
+	}
+
+	textarea::placeholder {
+		color: var(--muted-foreground);
+		opacity: 0.6;
+		transition: opacity 0.3s ease-in-out;
+	}
+
+	textarea:focus::placeholder {
+		opacity: 0.3;
+	}
+
+	/* Mobile adjustments */
+	@media (max-width: 768px) {
+		textarea {
+			font-size: 15px; /* Slightly smaller on mobile */
+		}
+		.w-full.text-xl {
+			font-size: 1.125rem; /* Equivalent to text-lg */
+		}
+	}
+</style> 

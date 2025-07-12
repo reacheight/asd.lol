@@ -72,6 +72,8 @@ export const currentTheme = writable<string>(loadFromStorage('currentTheme', 'de
 export const currentFont = writable<string>(loadFromStorage('currentFont', 'sans-serif'));
 export const currentSound = writable<string>(loadFromStorage('currentSound', 'none'));
 export const selectedShopCategory = writable<string>('all');
+export const notesCollapsed = writable<boolean>(false);
+export const shopCollapsed = writable<boolean>(false);
 
 // Subscribe to changes and save to localStorage
 notes.subscribe(value => saveToStorage('notes', value));

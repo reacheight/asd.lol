@@ -49,7 +49,7 @@
 	)}>
 		<div class="flex items-center gap-1">
 			<Button
-				variant="ghost"
+				variant="secondary"
 				size="icon"
 				class="h-8 w-8 shrink-0"
 				onclick={() => notesCollapsed.set(!isCollapsed)}
